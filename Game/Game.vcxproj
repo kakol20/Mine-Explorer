@@ -118,12 +118,14 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Enums.h" />
+    <ClInclude Include="Base.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
