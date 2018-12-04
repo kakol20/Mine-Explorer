@@ -11,6 +11,14 @@ public:
 
 	virtual void Activate();
 
+	void setValue(int value);
+	int getValue();
+
+	bool isDamaged();
+	void setDamage(bool damaged);
+
 private:
+	int m_value;
+	bool m_damaged;
 };
 #endif // !MINE_H

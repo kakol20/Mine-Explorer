@@ -31,12 +31,12 @@ void Game::Init()
 	std::cout << "Game initialized\n";
 
 	for (int i = 0; i < maxMines; i++) {
-		int randX = rand() % maxMines;
-		int randY = rand() % maxMines;
+		int randX = rand() % width;
+		int randY = rand() % height;
 
 		while (grid[randX][randY] != nullptr) {
-			randX = rand() % maxMines;
-			randY = rand() % maxMines;
+			randX = rand() % width;
+			randY = rand() % height;
 		}
 
 		grid[randX][randY] = new Mine(randX, randY);
@@ -45,6 +45,8 @@ void Game::Init()
 
 void Game::mainLoop()
 {
+	system("cls");
+
 	drawGrid();
 }
 
@@ -66,7 +68,9 @@ void Game::drawGrid()
 
 			}
 			else {
-				std::cout << "  ";
+				//std::cout << (char)219 << "\n";
+
+				std::cout << (char)219 << " ";
 
 			}
 		}

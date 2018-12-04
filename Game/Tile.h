@@ -1,6 +1,9 @@
 #ifndef TILE_H
 #define TILE_H
 
+#include <stdlib.h>
+#include <time.h>
+
 #include "Enums.h"
 
 class Tile {
