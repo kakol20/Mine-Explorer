@@ -1,13 +1,14 @@
 #include <iostream>
 #include "Game.h"
 
-int main() {
 
+int main() 
+{
 	Game* game = new Game;
 
 	game->Init();
 
-	if (game) delete game;
+	delete game;
 	game = nullptr;
 
 	system("pause");
