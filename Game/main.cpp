@@ -7,6 +7,7 @@ int main()
 	Game* game = new Game;
 
 	game->Init();
+	game->mainLoop();
 
 	delete game;
 	game = nullptr;
