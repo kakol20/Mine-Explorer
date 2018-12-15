@@ -9,9 +9,6 @@
 
 #include "Mine.h"
 
-const int height = 15;
-const int width = 15;
-
 const int maxEnemyBases = 5;
 const int maxMines = 5;
 

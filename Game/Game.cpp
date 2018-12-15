@@ -62,8 +62,16 @@ void Game::drawGrid()
 			std::cout << "| ";
 			if (grid[x][y] != nullptr) {
 
-				if (dynamic_cast<Mine*>(grid[x][y])) {
-					std::cout << "M ";
+				//if (grid[x][y].)
+
+				if (grid[x][y]->isDiscovered()) {
+					if (dynamic_cast<Mine*>(grid[x][y])) {
+						std::cout << "M ";
+					}
+				}
+				else {
+					std::cout << (char)219 << " ";
+
 				}
 
 			}

@@ -13,6 +13,8 @@ public:
 
 	virtual void Activate() = 0;
 
+	bool isDiscovered();
+
 	Position getPosition();
 
 protected:

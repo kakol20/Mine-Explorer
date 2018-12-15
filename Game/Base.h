@@ -11,4 +11,7 @@ enum DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 
 enum CLASSES { KNIGHT, MAGE, ARCHER };
 
+const int height = 15;
+const int width = 15;
+
 #endif // !BASE_H

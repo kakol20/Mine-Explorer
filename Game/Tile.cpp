@@ -13,6 +13,11 @@ Tile::~Tile()
 {
 }
 
+bool Tile::isDiscovered()
+{
+	return m_discovered;
+}
+
 Position Tile::getPosition()
 {
 	return m_position;

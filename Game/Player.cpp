@@ -29,7 +29,27 @@ int Player::Move()
 
 	switch (chosen) {
 		case NORTH:
-			// move
+			if (m_position.y > 0) {
+				m_position.y--;
+			}
+			break;
+
+		case EAST:
+			if (m_position.x < width) {
+				m_position.x++;
+			}
+			break;
+
+		case SOUTH:
+			if (m_position.y < height) {
+				m_position.y++;
+			}
+			break;
+
+		case WEST:
+			if (m_position.x > 0) {
+				m_position.x--;
+			}
 			break;
 	}
 	
