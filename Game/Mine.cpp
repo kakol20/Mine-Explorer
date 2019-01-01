@@ -15,10 +15,8 @@ void Mine::Activate()
 		// generate a random mine value between 5 to 10
 		int randVal = (rand() % 6) + 5;
 		m_value = randVal;
-	}
 
-	if (m_damaged) {
-		// ask user if they want to damage
+		m_discovered = true;
 	}
 }
 

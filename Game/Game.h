@@ -14,8 +14,8 @@
 
 #include "Knight.h"
 
-const int maxEnemyBases = 5;
-const int maxMines = 5;
+const int maxEnemyBases = 10;
+const int maxMines = 10;
 
 class Game 
 {
@@ -25,15 +25,17 @@ public:
 
 	void Init();
 
-	void mainLoop();
+	bool mainLoop();
 
 private:
 	
 	Tile* grid[width][height];
 
 	void drawGrid();
+	//void displayStats();
+	void revealNear(int x, int y);
 
-	Player* test;
+	Player* player;
 
 };
 #endif // !GAME_H

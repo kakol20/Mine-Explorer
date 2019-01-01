@@ -16,6 +16,7 @@ public:
 
 	void Init();
 	void Move();
+	void displayStats();
 
 	Position getPosition();
 

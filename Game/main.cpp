@@ -12,7 +12,7 @@ int main()
 
 	game->Init();
 
-	game->mainLoop();
+	while (game->mainLoop());
 
 	system("pause");
 	

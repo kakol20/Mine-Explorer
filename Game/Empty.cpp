@@ -10,4 +10,5 @@ Empty::~Empty()
 
 void Empty::Activate()
 {
+	m_discovered = true;
 }

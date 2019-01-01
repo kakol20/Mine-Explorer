@@ -20,8 +20,8 @@ void Player::Init()
 	m_intelligence = 10;
 	m_dexterity = 10;
 
-	m_position.x = 0;
-	m_position.y = 0;
+	m_position.x = width / 2;
+	m_position.y = height / 2;
 }
 
 void Player::Move()
@@ -58,6 +58,15 @@ void Player::Move()
 	
 
 	//return 0;
+}
+
+void Player::displayStats()
+{
+	std::cout << "Position     - x: " << m_position.x << " y: " << m_position.y << "\n";
+	std::cout << "Health       - " << m_health << "\n";
+	std::cout << "Strength     - " << m_strength << "\n";
+	std::cout << "Intelligence - " << m_intelligence << "\n";
+	std::cout << "Dexterity    - " << m_dexterity << "\n";
 }
 
 Position Player::getPosition()
