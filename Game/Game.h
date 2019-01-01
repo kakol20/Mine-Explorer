@@ -7,7 +7,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "Empty.h"
 #include "Mine.h"
+
+#include "Knight.h"
 
 const int maxEnemyBases = 5;
 const int maxMines = 5;
@@ -24,9 +27,11 @@ public:
 
 private:
 	
-	Tile * grid[width][height];
+	Tile* grid[width][height];
 
 	void drawGrid();
+
+	Player* test;
 
 };
 #endif // !GAME_H

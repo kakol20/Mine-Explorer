@@ -115,7 +115,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Empty.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -123,7 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Empty.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Tile.h" />

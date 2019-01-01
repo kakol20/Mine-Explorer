@@ -18,6 +18,11 @@ bool Tile::isDiscovered()
 	return m_discovered;
 }
 
+void Tile::discover()
+{
+	m_discovered = true;
+}
+
 Position Tile::getPosition()
 {
 	return m_position;

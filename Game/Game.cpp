@@ -24,6 +24,11 @@ Game::~Game()
 			
 		}
 	}
+
+	if (test != nullptr) {
+		delete test;
+		test = nullptr;
+	}
 }
 
 void Game::Init()
@@ -40,7 +45,21 @@ void Game::Init()
 		}
 
 		grid[randX][randY] = new Mine(randX, randY);
+
+		test = new Knight();
+
+		
 	}
+
+	for (int x = 0; x < width; x++) {
+		for (int y = 0; y < height; y++) {
+			if (grid[x][y] == nullptr) {
+				grid[x][y] = new Empty(x, y);
+			}
+		}
+	}
+	//grid[test->getPosition().x][test->getPosition().y]->discover();
+	grid[test->getPosition().x][test->getPosition().y]->discover();
 }
 
 void Game::mainLoop()
@@ -65,9 +84,16 @@ void Game::drawGrid()
 				//if (grid[x][y].)
 
 				if (grid[x][y]->isDiscovered()) {
-					if (dynamic_cast<Mine*>(grid[x][y])) {
+					if (x == test->getPosition().x && y == test->getPosition().y) {
+						std::cout << "P ";
+					}
+					else if (dynamic_cast<Mine*>(grid[x][y])) {
 						std::cout << "M ";
 					}
+
+					/*if (dynamic_cast<Mine*>(grid[x][y])) {
+						std::cout << "M ";
+					}*/
 				}
 				else {
 					std::cout << (char)219 << " ";

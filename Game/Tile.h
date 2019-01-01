@@ -15,6 +15,8 @@ public:
 
 	bool isDiscovered();
 
+	void discover();
+
 	Position getPosition();
 
 protected:
