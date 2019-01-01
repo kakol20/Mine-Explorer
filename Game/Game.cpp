@@ -35,21 +35,8 @@ void Game::Init()
 {
 	std::cout << "Game initialized\n";
 
-	for (int i = 0; i < maxMines; i++) {
-		int randX = rand() % width;
-		int randY = rand() % height;
-
-		while (grid[randX][randY] != nullptr) {
-			randX = rand() % width;
-			randY = rand() % height;
-		}
-
-		grid[randX][randY] = new Mine(randX, randY);
-
-		test = new Knight();
-
-		
-	}
+	test = new Knight();
+	test->Init();
 
 	for (int x = 0; x < width; x++) {
 		for (int y = 0; y < height; y++) {
@@ -58,13 +45,34 @@ void Game::Init()
 			}
 		}
 	}
+
+	Position pos = test->getPosition();
+	grid[pos.x][pos.y]->setDiscovered(true);
+
+	for (int i = 0; i < maxMines; i++) {
+		int randX = rand() % width;
+		int randY = rand() % height;
+
+		while (!dynamic_cast<Empty*>(grid[randX][randY]) || (randX == test->getPosition().x && randY == test->getPosition().y)) {
+			randX = rand() % width;
+			randY = rand() % height;
+		}
+
+		delete grid[randX][randY];
+		//grid[randX][randY] = nullptr;
+		grid[randX][randY] = new Mine(randX, randY);	
+	}
+	
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
-	grid[test->getPosition().x][test->getPosition().y]->discover();
+	//grid[test->getPosition().x][test->getPosition().y]->discover();
+
 }
 
 void Game::mainLoop()
 {
 	system("cls");
+
+	test->Move();
 
 	drawGrid();
 }
@@ -79,31 +87,36 @@ void Game::drawGrid()
 
 		for (int x = 0; x < width; x++) {
 			std::cout << "| ";
-			if (grid[x][y] != nullptr) {
+			//if (grid[x][y] != nullptr) {
 
-				//if (grid[x][y].)
+			//	//if (grid[x][y].)
 
-				if (grid[x][y]->isDiscovered()) {
-					if (x == test->getPosition().x && y == test->getPosition().y) {
-						std::cout << "P ";
-					}
-					else if (dynamic_cast<Mine*>(grid[x][y])) {
-						std::cout << "M ";
-					}
+			//	
 
-					/*if (dynamic_cast<Mine*>(grid[x][y])) {
-						std::cout << "M ";
-					}*/
+			//}
+			//else {
+			//	//std::cout << (char)219 << "\n";
+
+			//	std::cout << (char)219 << " ";
+
+			//}
+
+			if (grid[x][y]->isDiscovered()) {
+				if (x == test->getPosition().x && y == test->getPosition().y) {
+					std::cout << "P ";
+				}
+				else if (dynamic_cast<Mine*>(grid[x][y])) {
+					std::cout << "M ";
 				}
 				else {
-					std::cout << (char)219 << " ";
-
+					std::cout << "  ";
 				}
 
+				/*if (dynamic_cast<Mine*>(grid[x][y])) {
+					std::cout << "M ";
+				}*/
 			}
 			else {
-				//std::cout << (char)219 << "\n";
-
 				std::cout << (char)219 << " ";
 
 			}

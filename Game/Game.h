@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "Base.h"
+
 #include "Empty.h"
 #include "Mine.h"
 

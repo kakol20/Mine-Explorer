@@ -3,7 +3,6 @@
 
 #include "Game.h"
 
-
 int main() 
 {
 	SetConsoleCP(437);
@@ -15,10 +14,11 @@ int main()
 
 	game->mainLoop();
 
+	system("pause");
+	
 	delete game;
 	game = nullptr;
 
-	system("pause");
 
 	return 0;
 }

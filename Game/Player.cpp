@@ -19,9 +19,12 @@ void Player::Init()
 	m_strength = 10;
 	m_intelligence = 10;
 	m_dexterity = 10;
+
+	m_position.x = 0;
+	m_position.y = 0;
 }
 
-int Player::Move()
+void Player::Move()
 {
 	std::cout << "Choose a direction\n0 - North\n1 - East\n2 - South\n3 - West\n";
 	int chosen;
@@ -54,7 +57,7 @@ int Player::Move()
 	}
 	
 
-	return 0;
+	//return 0;
 }
 
 Position Player::getPosition()

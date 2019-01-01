@@ -11,6 +11,8 @@ enum DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 
 enum CLASSES { KNIGHT, MAGE, ARCHER };
 
+enum OPTIONS { MOVE, QUIT };
+
 const int height = 15;
 const int width = 15;
 

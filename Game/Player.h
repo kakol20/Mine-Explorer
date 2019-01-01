@@ -15,7 +15,7 @@ public:
 	virtual void Attack() = 0;
 
 	void Init();
-	int Move();
+	void Move();
 
 	Position getPosition();
 
