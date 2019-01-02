@@ -14,8 +14,8 @@
 
 #include "Knight.h"
 
-const int maxEnemyBases = 10;
-const int maxMines = 10;
+const int maxEnemyBases = 5;
+const int maxMines = 5;
 
 class Game 
 {

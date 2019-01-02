@@ -134,17 +134,39 @@ bool Game::mainLoop()
 
 	drawGrid();
 
-	std::cout << "---------------\n";
+	//std::cout << "---------------\n";
+	// https://en.wikipedia.org/wiki/Code_page_437#Character_set
+	for (int i = 0; i < 30; i++)
+	{
+		std::cout << (char)205;
+	}
+	std::cout << (char)202;
+	for (int i = 0; i < 30; i++)
+	{
+		std::cout << (char)205;
+	}
+	std::cout << "\n";
+
 	player->displayStats();
 
 	int option = 10000;
 
-	std::cout << "---------------\n";
+	for (int i = 0; i < 30; i++)
+	{
+		std::cout << (char)205;
+	}
+	std::cout << "\n";
 
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
 		"1: Quit\n";
 	std::cin >> option;
+
+	for (int i = 0; i < 30; i++)
+	{
+		std::cout << (char)205;
+	}
+	std::cout << "\n";
 
 	switch (option)
 	{
@@ -160,6 +182,7 @@ bool Game::mainLoop()
 		} while (!player->checkInput(directions));	
 
 		for (int i = 0; i < (int)strlen(directions); i++) {
+			// what to type to reveal map : nnnnnneeeeeesssssssssssswwwwwwwwwwwwnnnnnnnnnnnneeessssssssseeeeeennnnnn
 			player->Move(directions[i]);
 
 			revealNear(player->getPosition().x, player->getPosition().y);
@@ -168,7 +191,8 @@ bool Game::mainLoop()
 
 			//system("pause");
 		}
-		
+		system("pause");
+
 
 		break;
 
@@ -264,11 +288,50 @@ void Game::drawGrid()
 
 	for (int y = center.y - viewSize; y <= (center.y + viewSize); y++) 
 	{
+		// using ascii to display grid
 		for (int i = 0; i < (viewSize * 2) + 1; i++)
 		{
-			std::cout << " ---";
+			//std::cout << " ";
+
+			if (y == center.y - viewSize)
+			{
+				if (i == 0)
+				{
+					std::cout << (char)218;
+				}
+				else
+				{
+					std::cout << (char)194;
+				}
+			}
+			else
+			{
+				if (i == 0)
+				{
+					std::cout << (char)195;
+				}
+				else
+				{
+					std::cout << (char)197;
+				}
+			}
+
+			for (int j = 0; j < 3; j++)
+			{
+				std::cout << (char)196;
+			}
+			//std::cout << " ---";
 		}
-		std::cout << "  ";
+
+		if (y == center.y - viewSize)
+		{
+			std::cout << (char)191;
+		}
+		else
+		{
+			std::cout << (char)180;
+		}
+		std::cout << " ";
 
 		yMiniMap++;
 		displayMiniMap(yMiniMap);
@@ -294,7 +357,7 @@ void Game::drawGrid()
 			}
 			else 
 			{
-				std::cout << (char)219 << " ";
+				std::cout << (char)254 << " ";
 			}
 
 			//std::cout << " | ";
@@ -306,10 +369,24 @@ void Game::drawGrid()
 	}
 	for (int i = 0; i < (viewSize * 2) + 1; i++) 
 	{
-		std::cout << " ---";
-	}
+		if (i == 0)
+		{
+			std::cout << (char)192;
+		}
+		else
+		{
+			std::cout << (char)193;
+		}
 
-	std::cout << "  ";
+		//std::cout << " ";
+		for (int j = 0; j < 3; j++)
+		{
+			std::cout << (char)196;
+		}
+	}
+	std::cout << (char)217;
+
+	std::cout << " ";
 	yMiniMap++;
 	displayMiniMap(yMiniMap);
 	//std::cout << "\n";
@@ -344,6 +421,7 @@ void Game::nextTurn()
 void Game::displayMiniMap(int yMiniMap)
 {
 	Position playerPos = player->getPosition();
+	std::cout << (char)186 << " ";
 
 	if (yMiniMap < height)
 	{
@@ -366,7 +444,7 @@ void Game::displayMiniMap(int yMiniMap)
 			}
 			else
 			{
-				std::cout << (char)219 << " ";
+				std::cout << (char)254 << " ";
 			}
 		}
 	}

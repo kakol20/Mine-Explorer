@@ -17,6 +17,8 @@ void Mine::Activate()
 		m_value = randVal;
 
 		m_discovered = true;
+
+		std::cout << "You have discovered a mine!\n";
 	}
 }
 
