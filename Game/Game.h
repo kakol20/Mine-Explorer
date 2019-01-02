@@ -34,6 +34,7 @@ private:
 	void drawGrid();
 	//void displayStats();
 	void revealNear(int x, int y);
+	void nextTurn();
 
 	Player* player;
 

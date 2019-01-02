@@ -15,10 +15,12 @@ public:
 	virtual void Attack() = 0;
 
 	void Init();
-	void Move();
+	void Move(char direction);
 	void displayStats();
 
 	Position getPosition();
+
+	bool checkInput(char directions[]);
 
 protected:
 	Position m_position;

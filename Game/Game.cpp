@@ -97,14 +97,32 @@ bool Game::mainLoop()
 	switch (option)
 	{
 	case MOVE:
-		player->Move();
+		
 
-		revealNear(player->getPosition().x, player->getPosition().y);
+		char directions[100];
+
+		do
+		{
+			std::cout << "Choose direction to move\n 'n' for north, 'e' for east, 's' for south & 'w' for west\n";
+			std::cin >> directions;
+		} while (!player->checkInput(directions));	
+
+		for (int i = 0; i < (int)strlen(directions); i++) {
+			player->Move(directions[i]);
+
+			revealNear(player->getPosition().x, player->getPosition().y);
+
+			nextTurn();
+
+			//system("pause");
+		}
+		
 
 		break;
 
 	case QUIT:
 		loop = false;
+		break;
 	}
 	
 	return loop;
@@ -246,4 +264,8 @@ void Game::revealNear(int x, int y)
 			}
 		}
 	}
+}
+
+void Game::nextTurn()
+{
 }

@@ -24,32 +24,32 @@ void Player::Init()
 	m_position.y = height / 2;
 }
 
-void Player::Move()
+void Player::Move(char direction)
 {
-	std::cout << "Choose a direction\n0 - North\n1 - East\n2 - South\n3 - West\n";
+	/*std::cout << "Choose a direction\n0 - North\n1 - East\n2 - South\n3 - West\n";
 	int chosen;
-	std::cin >> chosen;
+	std::cin >> chosen;*/
 
-	switch (chosen) {
-		case NORTH:
+	switch (direction) {
+		case 'n':
 			if (m_position.y > 0) {
 				m_position.y--;
 			}
 			break;
 
-		case EAST:
+		case 'e':
 			if (m_position.x < width) {
 				m_position.x++;
 			}
 			break;
 
-		case SOUTH:
+		case 's':
 			if (m_position.y < height) {
 				m_position.y++;
 			}
 			break;
 
-		case WEST:
+		case 'w':
 			if (m_position.x > 0) {
 				m_position.x--;
 			}
@@ -72,4 +72,21 @@ void Player::displayStats()
 Position Player::getPosition()
 {
 	return m_position;
+}
+
+bool Player::checkInput(char directions[]) // check for valid input
+{
+	//char d[] = direction;
+
+	int length = (int)strlen(directions);
+
+	for (int i = 0; i < length; i++) 
+	{
+		if (directions[i] != 'n' && directions[i] != 'e' && directions[i] != 's' && directions[i] != 'w')
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
