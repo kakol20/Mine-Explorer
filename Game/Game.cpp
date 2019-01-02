@@ -76,38 +76,6 @@ void Game::Init()
 				}
 			}
 		}
-		/*if (randX - 1 >= 0) 
-		{
-			if (randY - 1 >= 0) 
-			{
-				if (grid[randX - 1][randY - 1] == nullptr)
-				{
-					grid[randX - 1][randY - 1] = new Empty(randX - 1, randY - 1);
-				}
-			}
-
-			if (grid[randX - 1][randY] == nullptr)
-			{
-				grid[randX - 1][randY] = new Empty(randX - 1, randY);
-			}
-
-
-			if (randY + 1 < height)
-			{
-				if (grid[randX - 1][randY + 1] == nullptr)
-				{
-					grid[randX - 1][randY + 1] = new Empty(randX - 1, randY + 1);
-				}
-			}
-		}
-
-		if (randY - 1 >= 0)
-		{
-			if (grid[randX][randY - 1] == nullptr)
-			{
-				grid[randX][randY - 1] = new Empty(randX, randX - 1);
-			}
-		}*/
 	}
 
 	for (int x = 0; x < width; x++)
@@ -132,21 +100,23 @@ bool Game::mainLoop()
 
 	bool loop = true;
 
+	
+
+	// ---------- DRAW MAIN MAP AND MINIMAP ----------
+
 	drawGrid();
 
 	//std::cout << "---------------\n";
 	// https://en.wikipedia.org/wiki/Code_page_437#Character_set
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < 37; i++)
 	{
 		std::cout << (char)205;
 	}
-	std::cout << (char)202;
-	for (int i = 0; i < 30; i++)
-	{
-		std::cout << (char)205;
-	}
+	std::cout << (char)188;
+
 	std::cout << "\n";
 
+	// ---------- OUTPUT PLAYER STATS ----------
 	player->displayStats();
 
 	int option = 10000;
@@ -157,6 +127,7 @@ bool Game::mainLoop()
 	}
 	std::cout << "\n";
 
+	// ---------- OUTPUT INTERFACE ----------
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
 		"1: Quit\n";
@@ -168,18 +139,15 @@ bool Game::mainLoop()
 	}
 	std::cout << "\n";
 
-	switch (option)
+	if (option == MOVE)
 	{
-	case MOVE:
-		
-
 		char directions[100];
 
 		do
 		{
 			std::cout << "Choose direction to move\n 'n' for north, 'e' for east, 's' for south & 'w' for west\n";
 			std::cin >> directions;
-		} while (!player->checkInput(directions));	
+		} while (!player->checkInput(directions));
 
 		for (int i = 0; i < (int)strlen(directions); i++) {
 			// what to type to reveal map : nnnnnneeeeeesssssssssssswwwwwwwwwwwwnnnnnnnnnnnneeessssssssseeeeeennnnnn
@@ -192,20 +160,40 @@ bool Game::mainLoop()
 			//system("pause");
 		}
 		system("pause");
-
-
-		break;
-
-	case QUIT:
+	}
+	else if (option == QUIT)
+	{
 		loop = false;
-		break;
-
-	default:
+	}
+	else 
+	{
 		std::cout << "Invalid input\n";
 		mainLoop();
-		//loop = false;
-		break;
 	}
+
+	//switch (option)
+	//{
+	//case MOVE:
+
+	//	
+
+	//	break;
+
+	//case QUIT:
+	//	
+	//	break;
+
+	///*default:
+	//	std::cout << "Invalid input\n";
+	//	mainLoop();
+	//	loop = false;
+	//	break;*/
+	//}
+
+	//if (option != MOVE && option != QUIT)
+	//{
+	//	
+	//}
 
 	
 	return loop;
@@ -316,7 +304,7 @@ void Game::drawGrid()
 				}
 			}
 
-			for (int j = 0; j < 3; j++)
+			for (int j = 0; j < 4; j++)
 			{
 				std::cout << (char)196;
 			}
@@ -338,35 +326,59 @@ void Game::drawGrid()
 
 		for (int x = center.x - viewSize; x <= (center.x + viewSize); x++) 
 		{
-			std::cout << "| ";
-
+			// top part of grid - will display player
+			std::cout << (char)179 << " ";
 			if (grid[x][y]->isDiscovered()) 
 			{
 				if (x == playerPos.x && y == playerPos.y) 
 				{
-					std::cout << "P ";
+					std::cout << "P  ";
 				}
-				else if (dynamic_cast<Mine*>(grid[x][y])) 
+				/*else if (dynamic_cast<Mine*>(grid[x][y])) 
 				{
-					std::cout << "M ";
-				}
+					std::cout << "M  ";
+				}*/
 				else 
 				{
-					std::cout << "  ";
+					std::cout << "   ";
 				}
 			}
 			else 
 			{
-				std::cout << (char)254 << " ";
+				std::cout << (char)220 << (char)220 << " ";
 			}
-
-			//std::cout << " | ";
 		}
-		std::cout << "| ";
-		
+		std::cout << (char)179 << " ";
+		yMiniMap++;
+		displayMiniMap(yMiniMap);
+
+		// bottom part of grid - will display tile type
+		//std::cout << (char)179 << " ";
+		for (int x = center.x - viewSize; x <= (center.x + viewSize); x++)
+		{
+			// top part of grid - will display player
+			std::cout << (char)179 << " ";
+			if (grid[x][y]->isDiscovered())
+			{
+				if (dynamic_cast<Mine*>(grid[x][y]))
+				{
+					std::cout << " M ";
+				}
+				else
+				{
+					std::cout << "   ";
+				}
+			}
+			else
+			{
+				std::cout << (char)223 << (char)223 << " ";
+			}
+		}
+		std::cout << (char)179 << " ";
 		yMiniMap++;
 		displayMiniMap(yMiniMap);
 	}
+
 	for (int i = 0; i < (viewSize * 2) + 1; i++) 
 	{
 		if (i == 0)
@@ -379,7 +391,7 @@ void Game::drawGrid()
 		}
 
 		//std::cout << " ";
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 4; j++)
 		{
 			std::cout << (char)196;
 		}
@@ -420,8 +432,17 @@ void Game::nextTurn()
 
 void Game::displayMiniMap(int yMiniMap)
 {
+
 	Position playerPos = player->getPosition();
-	std::cout << (char)186 << " ";
+
+	if (yMiniMap == height)
+	{
+		std::cout << (char)204;
+	}
+	else
+	{
+		std::cout << (char)186 << " ";
+	}
 
 	if (yMiniMap < height)
 	{
@@ -447,6 +468,25 @@ void Game::displayMiniMap(int yMiniMap)
 				std::cout << (char)254 << " ";
 			}
 		}
+	}
+	else if (yMiniMap == height)
+	{
+		for (int i = 0; i < 30; i++)
+		{
+			std::cout << (char)205;
+		}
+	}
+	else if (yMiniMap == height + 1)
+	{
+		std::cout << "P = player";
+	}
+	else if (yMiniMap == height + 2)
+	{
+		std::cout << "M = mine";
+	}
+	else if (yMiniMap == height + 3)
+	{
+		std::cout << (char)254 << " = undiscovered area";
 	}
 	std::cout << "\n";
 }
