@@ -44,6 +44,72 @@ void Game::Init()
 	player = new Knight();
 	player->Init();
 
+	Position pos = player->getPosition();
+
+	for (int i = 0; i < maxMines; i++)
+	{
+		int randX = rand() % width;
+		int randY = rand() % height;
+
+		while (grid[randX][randY] != nullptr || (randX == player->getPosition().x && randY == player->getPosition().y))
+		{
+			randX = rand() % width;
+			randY = rand() % height;
+		}
+
+		delete grid[randX][randY];
+		//grid[randX][randY] = nullptr;
+		grid[randX][randY] = new Mine(randX, randY);
+
+		// to prevent mines spawning adjacent to each other
+
+		for (int i = randX - 1; i <= randX + 1; i++)
+		{
+			for (int j = randY - 1; j <= randY + 1; j++)
+			{
+				if (i >= 0 && j >= 0 && i < width && j < height)
+				{
+					if (grid[i][j] == nullptr)
+					{
+						grid[i][j] = new Empty(i, j);
+					}
+				}
+			}
+		}
+		/*if (randX - 1 >= 0) 
+		{
+			if (randY - 1 >= 0) 
+			{
+				if (grid[randX - 1][randY - 1] == nullptr)
+				{
+					grid[randX - 1][randY - 1] = new Empty(randX - 1, randY - 1);
+				}
+			}
+
+			if (grid[randX - 1][randY] == nullptr)
+			{
+				grid[randX - 1][randY] = new Empty(randX - 1, randY);
+			}
+
+
+			if (randY + 1 < height)
+			{
+				if (grid[randX - 1][randY + 1] == nullptr)
+				{
+					grid[randX - 1][randY + 1] = new Empty(randX - 1, randY + 1);
+				}
+			}
+		}
+
+		if (randY - 1 >= 0)
+		{
+			if (grid[randX][randY - 1] == nullptr)
+			{
+				grid[randX][randY - 1] = new Empty(randX, randX - 1);
+			}
+		}*/
+	}
+
 	for (int x = 0; x < width; x++)
 	{
 		for (int y = 0; y < height; y++)
@@ -52,24 +118,6 @@ void Game::Init()
 				grid[x][y] = new Empty(x, y);
 			}
 		}
-	}
-
-	Position pos = player->getPosition();
-
-	for (int i = 0; i < maxMines; i++)
-	{
-		int randX = rand() % width;
-		int randY = rand() % height;
-
-		while (!dynamic_cast<Empty*>(grid[randX][randY]) || (randX == player->getPosition().x && randY == player->getPosition().y))
-		{
-			randX = rand() % width;
-			randY = rand() % height;
-		}
-
-		delete grid[randX][randY];
-		//grid[randX][randY] = nullptr;
-		grid[randX][randY] = new Mine(randX, randY);	
 	}
 	
 	revealNear(player->getPosition().x, player->getPosition().y);
@@ -85,9 +133,13 @@ bool Game::mainLoop()
 	bool loop = true;
 
 	drawGrid();
+
+	std::cout << "---------------\n";
 	player->displayStats();
 
 	int option = 10000;
+
+	std::cout << "---------------\n";
 
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
@@ -123,7 +175,14 @@ bool Game::mainLoop()
 	case QUIT:
 		loop = false;
 		break;
+
+	default:
+		std::cout << "Invalid input\n";
+		mainLoop();
+		//loop = false;
+		break;
 	}
+
 	
 	return loop;
 }
@@ -201,13 +260,18 @@ void Game::drawGrid()
 		center.y = height - viewSize - 1;
 	}
 
+	int yMiniMap = -1;
+
 	for (int y = center.y - viewSize; y <= (center.y + viewSize); y++) 
 	{
 		for (int i = 0; i < (viewSize * 2) + 1; i++)
 		{
 			std::cout << " ---";
 		}
-		std::cout << "\n";
+		std::cout << "  ";
+
+		yMiniMap++;
+		displayMiniMap(yMiniMap);
 
 		for (int x = center.x - viewSize; x <= (center.x + viewSize); x++) 
 		{
@@ -235,13 +299,20 @@ void Game::drawGrid()
 
 			//std::cout << " | ";
 		}
-		std::cout << "|\n";
+		std::cout << "| ";
+		
+		yMiniMap++;
+		displayMiniMap(yMiniMap);
 	}
 	for (int i = 0; i < (viewSize * 2) + 1; i++) 
 	{
 		std::cout << " ---";
 	}
-	std::cout << "\n";
+
+	std::cout << "  ";
+	yMiniMap++;
+	displayMiniMap(yMiniMap);
+	//std::cout << "\n";
 }
 
 void Game::revealNear(int x, int y)
@@ -268,4 +339,36 @@ void Game::revealNear(int x, int y)
 
 void Game::nextTurn()
 {
+}
+
+void Game::displayMiniMap(int yMiniMap)
+{
+	Position playerPos = player->getPosition();
+
+	if (yMiniMap < height)
+	{
+		for (int xMiniMap = 0; xMiniMap < width; xMiniMap++)
+		{
+			if (grid[xMiniMap][yMiniMap]->isDiscovered())
+			{
+				if (xMiniMap == playerPos.x && yMiniMap == playerPos.y)
+				{
+					std::cout << "P ";
+				}
+				else if (dynamic_cast<Mine*>(grid[xMiniMap][yMiniMap]))
+				{
+					std::cout << "M ";
+				}
+				else
+				{
+					std::cout << "  ";
+				}
+			}
+			else
+			{
+				std::cout << (char)219 << " ";
+			}
+		}
+	}
+	std::cout << "\n";
 }

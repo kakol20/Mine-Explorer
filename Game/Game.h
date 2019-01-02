@@ -36,6 +36,8 @@ private:
 	void revealNear(int x, int y);
 	void nextTurn();
 
+	void displayMiniMap(int yMiniMap);
+
 	Player* player;
 
 };

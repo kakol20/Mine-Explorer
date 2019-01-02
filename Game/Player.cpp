@@ -38,13 +38,13 @@ void Player::Move(char direction)
 			break;
 
 		case 'e':
-			if (m_position.x < width) {
+			if (m_position.x < width - 1) {
 				m_position.x++;
 			}
 			break;
 
 		case 's':
-			if (m_position.y < height) {
+			if (m_position.y < height - 1) {
 				m_position.y++;
 			}
 			break;
