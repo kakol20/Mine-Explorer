@@ -46,11 +46,13 @@ void Map::init(Position playerPos)
 {
 	//Position pos = player->getPosition();//player->getPosition();
 
+	// --------------- SPAWNS MINES ---------------
 	for (int i = 0; i < maxMines; i++)
 	{
 		int randX = rand() % width;
 		int randY = rand() % height;
 
+		// makes sure that mine does not spawn on top of the player
 		while (grid[randX][randY] != nullptr || (randX == playerPos.x && randY == playerPos.y))
 		{
 			randX = rand() % width;
@@ -78,6 +80,7 @@ void Map::init(Position playerPos)
 		}
 	}
 
+	// Any other tile will be empty
 	for (int x = 0; x < width; x++)
 	{
 		for (int y = 0; y < height; y++)
@@ -96,6 +99,7 @@ void Map::draw(Position playerPos)
 {
 	Position center = playerPos;
 	//Position playerPos = center;
+	// Changes the center of left map if player is near edge
 	int viewSize = 3;
 	if (center.x < viewSize)
 	{
@@ -122,7 +126,7 @@ void Map::draw(Position playerPos)
 		for (int i = 0; i < (viewSize * 2) + 1; i++)
 		{
 			//std::cout << " ";
-
+			// draws edges
 			if (y == center.y - viewSize)
 			{
 				if (i == 0)
@@ -163,6 +167,7 @@ void Map::draw(Position playerPos)
 		}
 		std::cout << " ";
 
+		// displays right map
 		yMiniMap++;
 		displayMiniMap(yMiniMap, playerPos);
 
@@ -176,10 +181,6 @@ void Map::draw(Position playerPos)
 				{
 					std::cout << "P  ";
 				}
-				/*else if (dynamic_cast<Mine*>(grid[x][y]))
-				{
-					std::cout << "M  ";
-				}*/
 				else
 				{
 					std::cout << "   ";
@@ -187,6 +188,7 @@ void Map::draw(Position playerPos)
 			}
 			else
 			{
+				// displays square if undiscovered
 				std::cout << (char)220 << (char)220 << " ";
 			}
 		}
@@ -217,10 +219,12 @@ void Map::draw(Position playerPos)
 			}
 		}
 		std::cout << (char)179 << " ";
+
 		yMiniMap++;
 		displayMiniMap(yMiniMap, playerPos);
 	}
 
+	// more edges
 	for (int i = 0; i < (viewSize * 2) + 1; i++)
 	{
 		if (i == 0)
@@ -258,6 +262,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 		std::cout << (char)186 << " ";
 	}
 
+	// displays whole map in less detail reperesented by letters or squares
 	if (yMiniMap < height)
 	{
 		for (int xMiniMap = 0; xMiniMap < width; xMiniMap++)
@@ -290,6 +295,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 			std::cout << (char)205;
 		}
 	}
+	// displays map legend
 	else if (yMiniMap == height + 1)
 	{
 		std::cout << "P = player";
@@ -307,6 +313,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 
 void Map::revealNear(int x, int y)
 {
+	// reveals adjacent tiles as discovered as the player moves
 	for (int i = x - 1; i <= x + 1; i++)
 	{
 		for (int j = y - 1; j <= y + 1; j++)
@@ -329,10 +336,12 @@ void Map::nextTurn(Player * player)
 		{
 			if (grid[x][y]->isDiscovered())
 			{
+				// goes through every discovered mine
 				if (dynamic_cast<Mine*>(grid[x][y]))
 				{
 					Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
-
+					
+					// mine will not give gold if it's damaged by an enemy
 					if (!mine->isDamaged())
 					{
 						player->addGold(mine->getValue());

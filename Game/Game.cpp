@@ -26,6 +26,7 @@ void Game::Init()
 {
 	std::cout << "Game initialized\n";
 
+	// Temporary until all classes added (if have time)
 	player = new Knight();
 	player->Init();
 
@@ -78,15 +79,10 @@ bool Game::mainLoop()
 		"1: Quit\n";
 	std::cin >> option;
 
-	/*while ((option != MOVE && option != QUIT) || std::cin.fail())
-	{
-		std::cout << "Choose an option:\n" <<
-			"0: Move\n" <<
-			"1: Quit\n";
-		std::cin >> option;
-	}*/
+	// error trapping
 	while (std::cin.fail() || (option != MOVE && option != QUIT))
 	{
+		// loops infinitely if a letter is inputted if this is not done
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -104,6 +100,7 @@ bool Game::mainLoop()
 
 	if (option == MOVE)
 	{
+		// player can input 100 directions
 		char directions[100];
 
 		do
@@ -118,6 +115,7 @@ bool Game::mainLoop()
 
 			map->revealNear(player->getPosition().x, player->getPosition().y);
 
+			// each movement will take one turn
 			nextTurn();
 
 			//system("pause");
@@ -128,11 +126,11 @@ bool Game::mainLoop()
 	{
 		loop = false;
 	}
-	else 
+	/*else 
 	{
 		std::cout << "Invalid input\n";
 		mainLoop();
-	}
+	}*/
 	
 	return loop;
 }

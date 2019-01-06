@@ -46,6 +46,7 @@ void Player::Init()
 	m_health = 100;
 
 	// hard code stats for now
+	// TODO: Customisable stats based on the class they chose
 	m_strength = 10;
 	m_intelligence = 10;
 	m_dexterity = 10;
