@@ -8,6 +8,36 @@ Player::~Player()
 {
 }
 
+Player::Player(const Player & copyPlayer)
+{
+	m_position.x = copyPlayer.m_position.x;
+	m_position.y = copyPlayer.m_position.y;
+
+	m_name = copyPlayer.m_name;
+
+	m_health = copyPlayer.m_health;
+	m_strength = copyPlayer.m_strength;
+	m_intelligence = copyPlayer.m_intelligence;
+	m_dexterity = copyPlayer.m_dexterity;
+}
+
+Player & Player::operator=(const Player & copyPlayer)
+{
+	if (this == &copyPlayer) return *this;
+
+	m_position.x = copyPlayer.m_position.x;
+	m_position.y = copyPlayer.m_position.y;
+
+	m_name = copyPlayer.m_name;
+
+	m_health = copyPlayer.m_health;
+	m_strength = copyPlayer.m_strength;
+	m_intelligence = copyPlayer.m_intelligence;
+	m_dexterity = copyPlayer.m_dexterity;
+
+	return *this;
+}
+
 void Player::Init()
 {
 	std::cout << "What is your name? ";

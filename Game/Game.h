@@ -14,8 +14,7 @@
 
 #include "Knight.h"
 
-const int maxEnemyBases = 5;
-const int maxMines = 5;
+#include "Map.h"
 
 class Game 
 {
@@ -29,16 +28,17 @@ public:
 
 private:
 	
-	Tile* grid[width][height];
+	//Tile* grid[width][height];
 
-	void drawGrid();
+	//void drawGrid();
 	//void displayStats();
-	void revealNear(int x, int y);
+	//void revealNear(int x, int y);
 	void nextTurn();
 
-	void displayMiniMap(int yMiniMap);
+	//void displayMiniMap(int yMiniMap);
 
 	Player* player;
 
+	Map* map;
 };
 #endif // !GAME_H

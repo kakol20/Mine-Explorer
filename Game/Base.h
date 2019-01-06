@@ -16,4 +16,7 @@ enum OPTIONS { MOVE, QUIT };
 const int height = 15;
 const int width = 15;
 
+const int maxEnemyBases = 5;
+const int maxMines = 5;
+
 #endif // !BASE_H

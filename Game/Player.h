@@ -12,6 +12,9 @@ public:
 	Player();
 	virtual ~Player();
 
+	Player(const Player& copyPlayer);
+	Player& operator=(const Player& copyPlayer);
+
 	virtual void Attack() = 0;
 
 	void Init();
