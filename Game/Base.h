@@ -13,6 +13,8 @@ enum CLASSES { KNIGHT, MAGE, ARCHER };
 
 enum OPTIONS { MOVE, QUIT };
 
+enum TILE_TYPE { MINE, EMPTY };
+
 const int height = 15;
 const int width = 15;
 

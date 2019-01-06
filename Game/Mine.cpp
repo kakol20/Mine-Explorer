@@ -9,6 +9,25 @@ Mine::~Mine()
 {
 }
 
+Mine::Mine(const Mine & copyMine) : Tile(copyMine)
+{
+	m_value = copyMine.m_value;
+	m_damaged = copyMine.m_damaged;
+}
+
+Mine & Mine::operator=(const Mine & copyMine)
+{
+	if (this == &copyMine) return *this;
+
+	m_damaged = copyMine.m_damaged;
+	m_discovered = copyMine.m_discovered;
+	m_position.x = copyMine.m_position.x;
+	m_position.y = copyMine.m_position.y;
+	m_value = copyMine.m_value;
+
+	return *this;
+}
+
 void Mine::Activate()
 {
 	if (!m_discovered) {

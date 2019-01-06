@@ -27,6 +27,9 @@ public:
 	void draw(Position playerPos);
 	void revealNear(int x, int y);
 
+	void nextTurn(Player* player);
+	
+
 private:
 
 	Tile* grid[width][height];

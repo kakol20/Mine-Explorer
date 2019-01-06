@@ -20,6 +20,8 @@ public:
 	void Init();
 	void Move(char direction);
 	void displayStats();
+	void addGold(int add);
+	void removeGold(int remove);
 
 	Position getPosition();
 
@@ -34,6 +36,8 @@ protected:
 	int m_strength;
 	int m_intelligence;
 	int m_dexterity;
+
+	int m_gold;
 };
 
 #endif // !PLAYER_H

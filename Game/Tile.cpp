@@ -13,6 +13,24 @@ Tile::~Tile()
 {
 }
 
+Tile::Tile(const Tile & copyTile)
+{
+	m_position.x = copyTile.m_position.x;
+	m_position.y = copyTile.m_position.y;
+
+	m_discovered = copyTile.m_discovered;
+}
+
+Tile & Tile::operator=(const Tile & copyTile)
+{
+	if (this == &copyTile) return *this;
+
+	m_discovered = copyTile.m_discovered;
+
+	m_position.x = copyTile.m_position.x;
+	m_position.y = copyTile.m_position.y;
+}
+
 bool Tile::isDiscovered()
 {
 	return m_discovered;

@@ -12,6 +12,11 @@ public:
 	Tile(int x, int y);
 	virtual ~Tile();
 
+	/*Player(const Player& copyPlayer);
+	Player& operator=(const Player& copyPlayer);*/
+	Tile(const Tile& copyTile);
+	Tile& operator=(const Tile& copyTile);
+
 	virtual void Activate() = 0;
 
 	bool isDiscovered();

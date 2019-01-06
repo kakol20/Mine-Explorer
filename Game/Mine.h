@@ -7,7 +7,11 @@ class Mine : public Tile
 {
 public:
 	Mine(int x, int y);
+	//Mine(const )
 	virtual ~Mine();
+
+	Mine(const Mine& copyMine);
+	Mine& operator=(const Mine& copyMine);
 
 	virtual void Activate();
 

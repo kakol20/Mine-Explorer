@@ -320,3 +320,29 @@ void Map::revealNear(int x, int y)
 		}
 	}
 }
+
+void Map::nextTurn(Player * player)
+{
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			if (grid[x][y]->isDiscovered())
+			{
+				if (dynamic_cast<Mine*>(grid[x][y]))
+				{
+					Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
+
+					if (!mine->isDamaged())
+					{
+						player->addGold(mine->getValue());
+					}
+					else {
+
+					}
+				}
+			}
+		}
+	}
+
+}

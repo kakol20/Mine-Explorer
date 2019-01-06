@@ -5,7 +5,6 @@ Game::Game()
 	srand((int)time(0));
 
 	map = new Map();
-	
 }
 
 Game::~Game()
@@ -69,10 +68,33 @@ bool Game::mainLoop()
 	std::cout << "\n";
 
 	// ---------- OUTPUT INTERFACE ----------
+	/*std::cout << "Choose an option:\n" <<
+		"0: Move\n" <<
+		"1: Quit\n";
+	std::cin >> option;*/
+
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
 		"1: Quit\n";
 	std::cin >> option;
+
+	/*while ((option != MOVE && option != QUIT) || std::cin.fail())
+	{
+		std::cout << "Choose an option:\n" <<
+			"0: Move\n" <<
+			"1: Quit\n";
+		std::cin >> option;
+	}*/
+	while (std::cin.fail() || (option != MOVE && option != QUIT))
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "Choose an option:\n" <<
+			"0: Move\n" <<
+			"1: Quit\n";
+		std::cin >> option;
+	}
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -117,4 +139,6 @@ bool Game::mainLoop()
 
 void Game::nextTurn()
 {
+	map->nextTurn(player);
+	
 }

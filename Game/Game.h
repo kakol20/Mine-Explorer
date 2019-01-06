@@ -40,5 +40,8 @@ private:
 	Player* player;
 
 	Map* map;
+
+	//Tile* grid[width][height];
+
 };
 #endif // !GAME_H

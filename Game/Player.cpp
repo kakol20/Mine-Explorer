@@ -52,6 +52,8 @@ void Player::Init()
 
 	m_position.x = width / 2;
 	m_position.y = height / 2;
+
+	m_gold = 0;
 }
 
 void Player::Move(char direction)
@@ -93,10 +95,21 @@ void Player::Move(char direction)
 void Player::displayStats()
 {
 	std::cout << "Position     - x: " << m_position.x << " y: " << m_position.y << "\n";
+	std::cout << "Gold         - " << m_gold << "\n";
 	std::cout << "Health       - " << m_health << "\n";
 	std::cout << "Strength     - " << m_strength << "\n";
 	std::cout << "Intelligence - " << m_intelligence << "\n";
 	std::cout << "Dexterity    - " << m_dexterity << "\n";
+}
+
+void Player::addGold(int add)
+{
+	m_gold += add;
+}
+
+void Player::removeGold(int remove)
+{
+	m_gold -= remove;
 }
 
 Position Player::getPosition()
