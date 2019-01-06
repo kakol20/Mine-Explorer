@@ -35,6 +35,8 @@ void Game::Init()
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
 
+	m_turns = 0;
+
 }
 
 bool Game::mainLoop()
@@ -58,6 +60,8 @@ bool Game::mainLoop()
 	std::cout << "\n";
 
 	// ---------- OUTPUT PLAYER STATS ----------
+	std::cout << "Turn " << m_turns << "\n";
+
 	player->displayStats();
 
 	int option = 10000;
@@ -76,19 +80,21 @@ bool Game::mainLoop()
 
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
-		"1: Quit\n";
+		"1: Nothing\n"
+		"2: Quit\n";
 	std::cin >> option;
 
 	// error trapping
-	while (std::cin.fail() || (option != MOVE && option != QUIT))
+	while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING))
 	{
 		// loops infinitely if a letter is inputted if this is not done
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
+		std::cout << "\nInvalid input\n";
 		std::cout << "Choose an option:\n" <<
 			"0: Move\n" <<
-			"1: Quit\n";
+			"1: Nothing\n"
+			"2: Quit\n";
 		std::cin >> option;
 	}
 
@@ -126,6 +132,10 @@ bool Game::mainLoop()
 	{
 		loop = false;
 	}
+	else if (option == NOTHING)
+	{
+		nextTurn();
+	}
 	/*else 
 	{
 		std::cout << "Invalid input\n";
@@ -138,5 +148,6 @@ bool Game::mainLoop()
 void Game::nextTurn()
 {
 	map->nextTurn(player);
-	
+
+	m_turns++;
 }

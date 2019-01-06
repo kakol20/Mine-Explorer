@@ -28,20 +28,13 @@ public:
 
 private:
 	
-	//Tile* grid[width][height];
-
-	//void drawGrid();
-	//void displayStats();
-	//void revealNear(int x, int y);
 	void nextTurn();
 
-	//void displayMiniMap(int yMiniMap);
+	int m_turns;
 
 	Player* player;
 
 	Map* map;
-
-	//Tile* grid[width][height];
 
 };
 #endif // !GAME_H

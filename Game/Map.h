@@ -11,6 +11,7 @@
 
 #include "Empty.h"
 #include "Mine.h"
+#include "EnemyBase.h"
 
 #include "Knight.h"
 

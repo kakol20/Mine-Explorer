@@ -80,6 +80,35 @@ void Map::init(Position playerPos)
 		}
 	}
 
+	// --------------- SPAWNS ENEMY BASES ---------------
+	for (int i = 0; i < maxEnemyBases; i++)
+	{
+		int randX = rand() % width;
+		int randY = rand() % height;
+		
+		while (grid[randX][randY] != nullptr || (randX == playerPos.x && randY == playerPos.y))
+		{
+			randX = rand() % width;
+			randY = rand() % height;
+		}
+
+		grid[randX][randY] = new EnemyBase(randX, randY);
+
+		for (int i = randX - 1; i <= randX + 1; i++)
+		{
+			for (int j = randY - 1; j <= randY + 1; j++)
+			{
+				if (i >= 0 && j >= 0 && i < width && j < height)
+				{
+					if (grid[i][j] == nullptr)
+					{
+						grid[i][j] = new Empty(i, j);
+					}
+				}
+			}
+		}
+	}
+
 	// Any other tile will be empty
 	for (int x = 0; x < width; x++)
 	{
@@ -208,6 +237,10 @@ void Map::draw(Position playerPos)
 				{
 					std::cout << " M ";
 				}
+				else if (dynamic_cast<EnemyBase*>(grid[x][y]))
+				{
+					std::cout << " E ";
+				}
 				else
 				{
 					std::cout << "   ";
@@ -276,6 +309,10 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 				else if (dynamic_cast<Mine*>(grid[xMiniMap][yMiniMap]))
 				{
 					std::cout << "M ";
+				}
+				else if (dynamic_cast<EnemyBase*>(grid[xMiniMap][yMiniMap]))
+				{
+					std::cout << "E ";
 				}
 				else
 				{
