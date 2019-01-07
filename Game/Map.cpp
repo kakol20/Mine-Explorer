@@ -370,7 +370,8 @@ void Map::revealNear(int x, int y)
 		{
 			if (i >= 0 && j >= 0 && i < width && j < height)
 			{
-				if (!grid[i][j]->isDiscovered()) {
+				if (!grid[i][j]->isDiscovered()) 
+				{
 					grid[i][j]->Activate();
 				}
 			}
@@ -403,5 +404,63 @@ void Map::nextTurn(Player * player)
 			}
 		}
 	}
+
+}
+
+bool Map::isOnTileType(Player * player)
+{
+	if (dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]))
+	{
+		return true;
+	}
+	else if (dynamic_cast<EnemyBase*>(grid[player->getPosition().x][player->getPosition().x]))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+void Map::interact(Player * player)
+{
+	//Position pos = player->getPosition()
+	Position pos = player->getPosition();
+
+	if (dynamic_cast<Mine*>(grid[pos.x][pos.y]))
+	{
+		Mine* mine = dynamic_cast<Mine*>(grid[pos.x][pos.y]);
+
+		if (mine->isDamaged())
+		{
+			/*TODO: All will happen in Mine class
+				1. Check for enemy within Mine class
+					a. Player must defeat enemy first
+						i. Spawned enemy will always be weaker than the player
+				2. If not, ask player if they want to repair the mine
+					a. This will take a turn to do
+
+			*/
+		}
+	}
+	else if (dynamic_cast<EnemyBase*>(grid[pos.x][pos.y]))
+	{
+		EnemyBase* base = dynamic_cast<EnemyBase*>(grid[pos.x][pos.y]);
+
+		/*TODO: All will happen in EnemyBase class
+			1. Ask player if they want to attack enemy
+				a. (OPTIONAL) Different attacks based on the player's class?
+				b. Player must get a hybrid (calculated and randomised) value above enemy's strength
+					  i. Different classes will use one main stat with the rest or less as minor stats
+					 ii. The knight will use strength as main stat with a small consideration of their dexterity (to determine accuracy and damage)
+					iii. The mage will use intelligence as main stat with a small consideration of their dexterity (to determine accuracy and damage)
+					 iv. The archer will use dexterity as main stat with a small consideration of their strength (to determine accuracy and damage)
+			2. Player can choose to leave enemy alone, but the enemy will get stroner later on
+			3. Player can choose to flee if they feel that they will lose
+			
+		*/
+	}
+	// TODO: Add a shop to increase player stats and max health
+
+	//if (dynamic_cast<grid[])
 
 }

@@ -30,6 +30,9 @@ public:
 
 	void nextTurn(Player* player);
 	
+	bool isOnTileType(Player* player);
+	void interact(Player* player);
+
 
 private:
 

@@ -30,7 +30,8 @@ Mine & Mine::operator=(const Mine & copyMine)
 
 void Mine::Activate()
 {
-	if (!m_discovered) {
+	if (!m_discovered) 
+	{
 		// generate a random mine value between 1 to 5 - this will determine how much gold the player will gain from it
 		int randVal = (rand() % 5) + 1;
 		m_value = randVal;

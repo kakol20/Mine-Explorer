@@ -82,10 +82,16 @@ bool Game::mainLoop()
 		"0: Move\n" <<
 		"1: Nothing\n"
 		"2: Quit\n";
+
+	/*if (dynamic_cast<Mine*>(grid[player->getPosition().x][pla]))*/
+	if (map->isOnTileType(player))
+	{
+		std::cout << "3: Interact with tile\n";
+	}
 	std::cin >> option;
 
 	// error trapping
-	while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING))
+	while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING && option != INTERACT)	)
 	{
 		// loops infinitely if a letter is inputted if this is not done
 		std::cin.clear();
@@ -95,6 +101,11 @@ bool Game::mainLoop()
 			"0: Move\n" <<
 			"1: Nothing\n"
 			"2: Quit\n";
+		if (map->isOnTileType(player))
+		{
+			std::cout << "3: Interact with tile\n";
+		}
+
 		std::cin >> option;
 	}
 
@@ -135,6 +146,10 @@ bool Game::mainLoop()
 	else if (option == NOTHING)
 	{
 		nextTurn();
+	}
+	else if (option == INTERACT)
+	{
+		map->interact(player);
 	}
 	/*else 
 	{
