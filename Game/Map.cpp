@@ -235,7 +235,16 @@ void Map::draw(Position playerPos)
 			{
 				if (dynamic_cast<Mine*>(grid[x][y]))
 				{
-					std::cout << " M ";
+					Mine * temp = dynamic_cast<Mine*>(grid[x][y]);
+					if (temp->isDamaged())
+					{
+						std::cout << "d";
+					}
+					else
+					{
+						std::cout << temp->getValue();
+					}
+					std::cout << "M ";
 				}
 				else if (dynamic_cast<EnemyBase*>(grid[x][y]))
 				{
@@ -339,7 +348,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 	}
 	else if (yMiniMap == height + 2)
 	{
-		std::cout << "M = mine";
+		std::cout << "nM = mine preceded by its value 'n' or 'd' if it's damaged";
 	}
 	else if (yMiniMap == height + 3)
 	{
