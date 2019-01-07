@@ -343,6 +343,10 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 	}
 	else if (yMiniMap == height + 3)
 	{
+		std::cout << "E = enemy base";
+	}
+	else if (yMiniMap == height + 4)
+	{
 		std::cout << (char)254 << " = undiscovered area";
 	}
 	std::cout << "\n";

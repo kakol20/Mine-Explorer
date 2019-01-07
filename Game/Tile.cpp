@@ -29,6 +29,8 @@ Tile & Tile::operator=(const Tile & copyTile)
 
 	m_position.x = copyTile.m_position.x;
 	m_position.y = copyTile.m_position.y;
+
+	return *this;
 }
 
 bool Tile::isDiscovered()
