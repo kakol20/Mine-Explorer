@@ -9,7 +9,8 @@ public:
 	Knight();
 	virtual ~Knight();
 
-	virtual void Attack();
+	virtual int calculateDamage();
+	//virtual void Attack();
 
 private:
 

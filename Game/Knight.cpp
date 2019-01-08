@@ -9,6 +9,7 @@ Knight::~Knight()
 {
 }
 
-void Knight::Attack()
+int Knight::calculateDamage()
 {
+	return 0;
 }

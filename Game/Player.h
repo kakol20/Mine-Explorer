@@ -15,7 +15,9 @@ public:
 	Player(const Player& copyPlayer);
 	Player& operator=(const Player& copyPlayer);
 
-	virtual void Attack() = 0;
+	virtual int calculateDamage() = 0;
+
+	//virtual void Attack() = 0;
 
 	void Init();
 	void Move(char direction);

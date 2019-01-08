@@ -11,7 +11,7 @@ public:
 	virtual ~Mine();
 
 	Mine(const Mine& copyMine);
-	Mine& operator=(const Mine& copyMine);
+	virtual Mine& operator=(const Mine& copyMine);
 
 	virtual void Activate();
 

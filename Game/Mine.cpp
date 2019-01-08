@@ -3,6 +3,7 @@
 Mine::Mine(int x, int y) : Tile(x, y)
 {
 	m_damaged = false;
+
 }
 
 Mine::~Mine()
@@ -32,6 +33,7 @@ void Mine::Activate()
 {
 	if (!m_discovered) 
 	{
+		m_damaged = false;
 		// generate a random mine value between 1 to 5 - this will determine how much gold the player will gain from it
 		int randVal = (rand() % 5) + 1;
 		m_value = randVal;
