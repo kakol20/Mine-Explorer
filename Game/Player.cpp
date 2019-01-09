@@ -47,14 +47,18 @@ void Player::Init()
 
 	// hard code stats for now
 	// TODO: Customisable stats based on the class they chose
-	m_strength = 10;
-	m_intelligence = 10;
-	m_dexterity = 10;
+	m_strength = 5;
+	m_intelligence = 5;
+	m_dexterity = 5;
+
+	displayStats();
 
 	m_position.x = width / 2;
 	m_position.y = height / 2;
 
 	m_gold = 0;
+
+	customiseStats(10);
 }
 
 void Player::Move(char direction)
@@ -116,6 +120,76 @@ void Player::removeGold(int remove)
 void Player::changeHealth(int delta)
 {
 	m_health += delta;
+}
+
+void Player::customiseStats(int availablePoints)
+{
+	int option;
+
+	system("cls");
+
+	displayStats();
+
+	std::cout << "\nChoose a stat to customise:\n" <<
+		"0. Strength\n" <<
+		"1. Intelligence\n" <<
+		"2. Dexterity\n";
+
+	std::cin >> option;
+
+	while (std::cin.fail() || (option < 0 || option > 2))
+	{
+		// loops infinitely if a letter is inputted if this is not done
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "\nInvalid input\n";
+		std::cout << "Choose a stat to customise:\n" <<
+			"0. Strength\n" <<
+			"1. Intelligence\n" <<
+			"2. Dexterity\n";
+
+		std::cin >> option;
+	}
+
+	int toSpend;
+	std::cout << "\nHow many points do you want to spend? max: " << availablePoints << "\n";
+	std::cin >> toSpend;
+
+	while (std::cin.fail() || (toSpend < 0 || toSpend > availablePoints))
+	{
+		// loops infinitely if a letter is inputted if this is not done
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "\nInvalid input\n";
+		std::cout << "\nHow many points do you want to spend? max: " << availablePoints << "\n";
+		std::cin >> toSpend;
+
+	}
+	
+	int pointsLeft = availablePoints;
+
+	if (option == 0)
+	{
+		m_strength += toSpend;
+
+		pointsLeft -= toSpend;
+	}
+	else if (option == 1)
+	{
+		m_intelligence += toSpend;
+		pointsLeft -= toSpend;
+	}
+	else if (option == 2)
+	{
+		m_dexterity += toSpend;
+
+		pointsLeft -= toSpend;
+	}
+
+	if (pointsLeft > 0)
+	{
+		customiseStats(pointsLeft);
+	}
 }
 
 Position Player::getPosition()

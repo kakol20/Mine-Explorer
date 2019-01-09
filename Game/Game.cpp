@@ -30,6 +30,8 @@ void Game::Init()
 	player = new Knight();
 	player->Init();
 
+	//TODO: Ask what class they want to be in
+
 	map->init(player, m_turns);
 	
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
@@ -112,7 +114,7 @@ bool Game::mainLoop()
 	}
 	else
 	{
-		while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING))
+		while (std::cin.fail() || (option < MOVE || option > QUIT))
 		{
 			// loops infinitely if a letter is inputted if this is not done
 			std::cin.clear();

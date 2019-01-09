@@ -29,6 +29,8 @@ public:
 	void removeGold(int remove);
 	void changeHealth(int delta);
 
+	void customiseStats(int availablePoints);
+
 	Position getPosition();
 
 	bool checkInput(char directions[]);
