@@ -132,7 +132,7 @@ int EnemyBase::interact(int playerDamage)
 
 		if (netDamageToPlayer > 0)
 		{
-			std::cout << "You won against the enemy!\nIt has disappered from the map\n";
+			std::cout << "You won against the enemy!\nIt has disappeared from the map\n";
 		}
 		else if (netDamageToPlayer < 0)
 		{
