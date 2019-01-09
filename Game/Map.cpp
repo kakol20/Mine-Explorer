@@ -472,6 +472,10 @@ void Map::interact(Player * player, int turns)
 			delete grid[pos.x][pos.y];
 			grid[pos.x][pos.y] = new Empty(pos.x, pos.y);
 			grid[pos.x][pos.y]->Activate(player, turns);
+
+			system("pause");
+
+			player->customiseStats(10);
 		}
 		else if (netDamage < 0)
 		{

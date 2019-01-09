@@ -58,7 +58,7 @@ void Player::Init()
 
 	m_gold = 0;
 
-	customiseStats(10);
+	customiseStats(20);
 }
 
 void Player::Move(char direction)
