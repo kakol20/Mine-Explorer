@@ -91,22 +91,42 @@ bool Game::mainLoop()
 	std::cin >> option;
 
 	// error trapping
-	while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING && option != INTERACT)	)
-	{
-		// loops infinitely if a letter is inputted if this is not done
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << "\nInvalid input\n";
-		std::cout << "Choose an option:\n" <<
-			"0: Move\n" <<
-			"1: Nothing\n"
-			"2: Quit\n";
-		if (map->isOnTileType(player))
-		{
-			std::cout << "3: Interact with tile\n";
-		}
 
-		std::cin >> option;
+	if (map->isOnTileType(player)) 
+	{
+		while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING && option != INTERACT))
+		{
+			// loops infinitely if a letter is inputted if this is not done
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nInvalid input\n";
+			std::cout << "Choose an option:\n" <<
+				"0: Move\n" <<
+				"1: Nothing\n"
+				"2: Quit\n";
+			if (map->isOnTileType(player))
+			{
+				std::cout << "3: Interact with tile\n";
+			}
+
+			std::cin >> option;
+		}
+	}
+	else
+	{
+		while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING))
+		{
+			// loops infinitely if a letter is inputted if this is not done
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "\nInvalid input\n";
+			std::cout << "Choose an option:\n" <<
+				"0: Move\n" <<
+				"1: Nothing\n"
+				"2: Quit\n";
+
+			std::cin >> option;
+		}
 	}
 
 	for (int i = 0; i < 30; i++)

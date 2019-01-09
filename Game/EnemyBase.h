@@ -4,6 +4,9 @@
 #include "Tile.h"
 #include "Orc.h"
 
+//#include <stdlib.h>
+//#include <time.h>
+
 class EnemyBase : public Tile
 {
 public:
@@ -13,6 +16,11 @@ public:
 	virtual ~EnemyBase();
 
 	virtual void Activate();
+
+	int getDamage();
+	int getEnemyType();
+
+	void interact(int playerDamage);
 
 private:
 

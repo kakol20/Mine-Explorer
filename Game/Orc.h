@@ -8,12 +8,16 @@ class Orc : public Enemy
 public:
 	Orc();
 	Orc(const Orc &copyOrc);
-	Orc& operator=(const Orc &copyOrc);
+	virtual Orc& operator=(const Orc &copyOrc);
 	virtual ~Orc();
 
-	virtual void Init(int turnNumber);
+	virtual void Init();
+
+	//virtual int getEnemyType();
 
 	virtual int calculateDamage();
+
+	virtual void displayStats();
 
 private:
 

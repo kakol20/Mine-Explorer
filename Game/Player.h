@@ -6,6 +6,9 @@
 
 #include "Base.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 class Player 
 {
 public:

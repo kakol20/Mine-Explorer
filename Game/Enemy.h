@@ -5,18 +5,27 @@
 
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
 
 class Enemy
 {
 public:
 	Enemy();
 	Enemy(const Enemy &copyEnemy);
-	Enemy& operator=(const Enemy &copyEnemy);
+	virtual Enemy& operator=(const Enemy &copyEnemy);
 	virtual ~Enemy();
 
-	virtual void Init(int turnNumber);
+	virtual void Init();
+	
+	//virtual int getEnemyType();
 
 	virtual int calculateDamage() = 0;
+
+	virtual void displayStats();
+
+	/*int getStrength();
+	int getIntelligence();
+	int get*/
 
 protected:
 	

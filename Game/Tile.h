@@ -17,6 +17,7 @@ public:
 	Tile(const Tile& copyTile);
 	virtual Tile& operator=(const Tile& copyTile);
 
+	//virtual void getEnemyType();
 	virtual void Activate() = 0;
 
 	bool isDiscovered();
@@ -24,6 +25,7 @@ public:
 	//void discover();
 
 	void setDiscovered(bool discovered);
+
 
 	Position getPosition();
 

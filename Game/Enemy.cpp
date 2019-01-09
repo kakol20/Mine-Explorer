@@ -27,6 +27,10 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(int turnNumber)
+void Enemy::Init()
+{
+}
+
+void Enemy::displayStats()
 {
 }

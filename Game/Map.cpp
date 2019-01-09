@@ -407,7 +407,7 @@ void Map::nextTurn(Player * player)
 
 }
 
-bool Map::isOnTileType(Player * player)
+bool Map::isOnTileType(Player * player) //TODO: Not working
 {
 	if (dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
@@ -417,8 +417,10 @@ bool Map::isOnTileType(Player * player)
 	{
 		return true;
 	}
-
-	return false;
+	else
+	{
+		return false;
+	}
 }
 
 void Map::interact(Player * player)
@@ -458,8 +460,18 @@ void Map::interact(Player * player)
 			3. Player can choose to flee if they feel that they will lose
 			
 		*/
+		//std::cout << "There s"
+		int enemyType = base->getEnemyType();
+		
+
+
 	}
 	// TODO: Add a shop to increase player stats and max health
+
+	if (!dynamic_cast<Empty*>(grid[pos.x][pos.y]))
+	{
+		
+	}
 
 	//if (dynamic_cast<grid[])
 
