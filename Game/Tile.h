@@ -7,6 +7,8 @@
 
 #include "Base.h"
 
+#include "Player.h"
+
 class Tile {
 public:
 	Tile(int x, int y);
@@ -18,7 +20,7 @@ public:
 	virtual Tile& operator=(const Tile& copyTile);
 
 	//virtual void getEnemyType();
-	virtual void Activate() = 0;
+	virtual void Activate(Player* player, int turns) = 0;
 
 	bool isDiscovered();
 

@@ -29,7 +29,7 @@ Mine & Mine::operator=(const Mine & copyMine)
 	return *this;
 }
 
-void Mine::Activate()
+void Mine::Activate(Player* player, int turns)
 {
 	if (!m_discovered) 
 	{
@@ -40,7 +40,7 @@ void Mine::Activate()
 
 		m_discovered = true;
 
-		std::cout << "You have discovered a mine!\n";
+		std::cout << "You have discovered a mine at (" << m_position.x << ", " << m_position.y << ")\n";
 	}
 }
 

@@ -24,9 +24,10 @@ public:
 
 	void Init();
 	void Move(char direction);
-	void displayStats();
+	virtual void displayStats();
 	void addGold(int add);
 	void removeGold(int remove);
+	void changeHealth(int delta);
 
 	Position getPosition();
 

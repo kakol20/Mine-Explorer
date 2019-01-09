@@ -113,6 +113,11 @@ void Player::removeGold(int remove)
 	m_gold -= remove;
 }
 
+void Player::changeHealth(int delta)
+{
+	m_health += delta;
+}
+
 Position Player::getPosition()
 {
 	return m_position;

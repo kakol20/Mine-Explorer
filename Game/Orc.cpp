@@ -19,11 +19,12 @@ Orc::~Orc()
 {
 }
 
-void Orc::Init()
+void Orc::Init(int turns)
 {
-	m_strength = rand() % 6 + 10;
-	m_dexterity = rand() % 4 + 5;
-	m_intelligence = rand() % 3 + 3;
+
+	m_strength = rand() % 5 + (10 + (turns / 10));
+	m_dexterity = rand() % 5 + (5 + (turns / 10));
+	m_intelligence = rand() % 3 + (3 + (turns / 10));
 }
 
 int Orc::calculateDamage()
@@ -43,8 +44,8 @@ void Orc::displayStats()
 	float possibleDamage = m_strength + (m_dexterity / 2.0f) + (m_intelligence / 3.0f);
 
 	std::cout << "Orc -\n" <<
-		"Strength     - " << m_strength << "\n" <<
-		"Intelligence - " << m_intelligence << "\n" <<
-		"Dexterity    - " << m_dexterity << "\n" <<
-		"Possible Dmg - " << (int)possibleDamage << "\n";
+		"Strength         - " << m_strength << "\n" <<
+		"Intelligence     - " << m_intelligence << "\n" <<
+		"Dexterity        - " << m_dexterity << "\n" <<
+		"Possible Max Dmg - " << (int)possibleDamage << "\n";
 }

@@ -15,12 +15,12 @@ public:
 	EnemyBase& operator=(const EnemyBase& copyEnemy);
 	virtual ~EnemyBase();
 
-	virtual void Activate();
+	virtual void Activate(Player* player, int turns);
 
 	int getDamage();
 	int getEnemyType();
 
-	void interact(int playerDamage);
+	int interact(int playerDamage);
 
 private:
 

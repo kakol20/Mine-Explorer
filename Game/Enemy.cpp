@@ -27,7 +27,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+void Enemy::Init(int turns)
 {
 }
 

@@ -50,7 +50,7 @@ EnemyBase::~EnemyBase()
 	}
 }
 
-void EnemyBase::Activate()
+void EnemyBase::Activate(Player* player, int turns)
 {
 	if (!m_discovered)
 	{
@@ -62,11 +62,11 @@ void EnemyBase::Activate()
 		if (chosen == ORC)
 		{
 			enemy = new Orc();
-			enemy->Init();
+			enemy->Init(turns);
 		}
 
 		m_discovered = true;
-		std::cout << "You have discovered an enemy base!\n";
+		std::cout << "You have discovered an enemy base at ( " << m_position.x << ", " << m_position.y << ")\n";
 	}
 }
 
@@ -83,7 +83,66 @@ int EnemyBase::getEnemyType()
 	}
 }
 
-void EnemyBase::interact(int playerDamage)
+int EnemyBase::interact(int playerDamage)
 {
+	int enemyDamage = enemy->calculateDamage();
+
+	// player must get damage value higher than enemy's damage
+	// if player gets lower, the damage done to their health is the difference
+	int netDamageToPlayer = playerDamage - enemyDamage;
+
 	enemy->displayStats();
+
+	int option;
+
+	for (int i = 0; i < 30; i++)
+	{
+		std::cout << (char)205;
+	}
+	std::cout << "\n";
+
+	std::cout << "Choose an option -\n"
+		<< "0. Attack\n"
+		<< "1. Nothing\n";
+	std::cin >> option;
+
+	while (std::cin.fail() || (option < 0 || option > 1))
+	{
+		// loops infinitely if a letter is inputted if this is not done
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "\nInvalid input\n";
+		std::cout << "Choose an option -\n"
+			<< "0. Attack\n"
+			<< "1. Nothing\n";
+		std::cin >> option;
+	}
+
+	
+	if (option == 0)
+	{
+		std::cout << "Your damage is " << playerDamage << " and the  ";
+
+		if (dynamic_cast<Orc*>(enemy))
+		{
+			std::cout << "Orc's";
+		}
+
+		std::cout << " damage is " << enemyDamage << "\n";
+
+		if (netDamageToPlayer > 0)
+		{
+			std::cout << "You won against the enemy!\nIt has disappered from the map\n";
+		}
+		else if (netDamageToPlayer < 0)
+		{
+			std::cout << "You lost against the enemy!\nYou lose " << (-1 * netDamageToPlayer) << " health\n";
+		}
+	}
+	else if (option == 1)
+	{
+		netDamageToPlayer = 0;
+	}
+
+	return netDamageToPlayer;
 }

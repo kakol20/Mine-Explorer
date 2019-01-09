@@ -42,9 +42,10 @@ Map::~Map()
 	}
 }
 
-void Map::init(Position playerPos)
+void Map::init(Player* player, int turns)
 {
 	//Position pos = player->getPosition();//player->getPosition();
+	Position playerPos = player->getPosition();
 
 	// --------------- SPAWNS MINES ---------------
 	for (int i = 0; i < maxMines; i++)
@@ -120,7 +121,7 @@ void Map::init(Position playerPos)
 		}
 	}
 
-	revealNear(playerPos.x, playerPos.y);
+	revealNear(playerPos.x, playerPos.y, player, turns);
 
 }
 
@@ -361,7 +362,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 	std::cout << "\n";
 }
 
-void Map::revealNear(int x, int y)
+void Map::revealNear(int x, int y, Player* player, int turns)
 {
 	// reveals adjacent tiles as discovered as the player moves
 	for (int i = x - 1; i <= x + 1; i++)
@@ -372,14 +373,14 @@ void Map::revealNear(int x, int y)
 			{
 				if (!grid[i][j]->isDiscovered()) 
 				{
-					grid[i][j]->Activate();
+					grid[i][j]->Activate(player, turns);
 				}
 			}
 		}
 	}
 }
 
-void Map::nextTurn(Player * player)
+void Map::nextTurn(Player * player, int turns)
 {
 	for (int x = 0; x < width; x++)
 	{
@@ -413,7 +414,7 @@ bool Map::isOnTileType(Player * player) //TODO: Not working
 	{
 		return true;
 	}
-	else if (dynamic_cast<EnemyBase*>(grid[player->getPosition().x][player->getPosition().x]))
+	else if (dynamic_cast<EnemyBase*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
 		return true;
 	}
@@ -423,7 +424,7 @@ bool Map::isOnTileType(Player * player) //TODO: Not working
 	}
 }
 
-void Map::interact(Player * player)
+void Map::interact(Player * player, int turns)
 {
 	//Position pos = player->getPosition()
 	Position pos = player->getPosition();
@@ -461,17 +462,26 @@ void Map::interact(Player * player)
 			
 		*/
 		//std::cout << "There s"
-		int enemyType = base->getEnemyType();
-		
+		//int enemyType = base->getEnemyType();
 
+		int netDamage = base->interact(player->calculateDamage());
+
+		if (netDamage > 0) // player won
+		{
+			// deletes enemy base from grid and replaces it with an empty tile
+			delete grid[pos.x][pos.y];
+			grid[pos.x][pos.y] = new Empty(pos.x, pos.y);
+			grid[pos.x][pos.y]->Activate(player, turns);
+		}
+		else if (netDamage < 0)
+		{
+			player->changeHealth(netDamage);
+		}
+		
+		//base.
 
 	}
-	// TODO: Add a shop to increase player stats and max health
-
-	if (!dynamic_cast<Empty*>(grid[pos.x][pos.y]))
-	{
-		
-	}
+	// TODO: Add a shop to increase player stats and max health - or if not enough time, increase stats everytime player wins
 
 	//if (dynamic_cast<grid[])
 

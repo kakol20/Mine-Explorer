@@ -30,7 +30,7 @@ void Game::Init()
 	player = new Knight();
 	player->Init();
 
-	map->init(player->getPosition());
+	map->init(player, m_turns);
 	
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
 	//grid[test->getPosition().x][test->getPosition().y]->discover();
@@ -94,7 +94,7 @@ bool Game::mainLoop()
 
 	if (map->isOnTileType(player)) 
 	{
-		while (std::cin.fail() || (option != MOVE && option != QUIT && option != NOTHING && option != INTERACT))
+		while (std::cin.fail() || /*(option != MOVE && option != QUIT && option != NOTHING && option != INTERACT) */ (option < MOVE || option > INTERACT))
 		{
 			// loops infinitely if a letter is inputted if this is not done
 			std::cin.clear();
@@ -103,12 +103,10 @@ bool Game::mainLoop()
 			std::cout << "Choose an option:\n" <<
 				"0: Move\n" <<
 				"1: Nothing\n"
-				"2: Quit\n";
-			if (map->isOnTileType(player))
-			{
-				std::cout << "3: Interact with tile\n";
-			}
+				"2: Quit\n"
+				"3: Interact with tile\n";
 
+			//std::cout 
 			std::cin >> option;
 		}
 	}
@@ -143,6 +141,7 @@ bool Game::mainLoop()
 		do
 		{
 			std::cout << "Choose direction to move\n 'n' for north, 'e' for east, 's' for south & 'w' for west\n";
+			std::cout << "Tip: you can type multiple directions to move more than once\n";
 			std::cin >> directions;
 		} while (!player->checkInput(directions));
 
@@ -150,7 +149,7 @@ bool Game::mainLoop()
 			// what to type to reveal map : nnnnnneeeeeesssssssssssswwwwwwwwwwwwnnnnnnnnnnnneeessssssssseeeeeennnnnn
 			player->Move(directions[i]);
 
-			map->revealNear(player->getPosition().x, player->getPosition().y);
+			map->revealNear(player->getPosition().x, player->getPosition().y, player, m_turns);
 
 			// each movement will take one turn
 			nextTurn();
@@ -169,7 +168,9 @@ bool Game::mainLoop()
 	}
 	else if (option == INTERACT)
 	{
-		map->interact(player);
+		map->interact(player, m_turns);
+
+		system("pause");
 	}
 	/*else 
 	{
@@ -182,7 +183,7 @@ bool Game::mainLoop()
 
 void Game::nextTurn()
 {
-	map->nextTurn(player);
+	map->nextTurn(player, m_turns);
 
 	m_turns++;
 }

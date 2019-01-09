@@ -24,14 +24,14 @@ public:
 	Map();
 	~Map();
 
-	void init(Position playerPos);
+	void init(Player* player, int turns);
 	void draw(Position playerPos);
-	void revealNear(int x, int y);
+	void revealNear(int x, int y, Player* player, int turns);
 
-	void nextTurn(Player* player);
+	void nextTurn(Player* player, int turns);
 	
 	bool isOnTileType(Player* player);
-	void interact(Player* player);
+	void interact(Player* player, int turns);
 
 
 private:

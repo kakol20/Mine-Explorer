@@ -13,7 +13,7 @@ public:
 	Mine(const Mine& copyMine);
 	virtual Mine& operator=(const Mine& copyMine);
 
-	virtual void Activate();
+	virtual void Activate(Player* player, int turns);
 
 	void setValue(int value);
 	int getValue();

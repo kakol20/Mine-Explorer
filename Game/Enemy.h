@@ -15,7 +15,7 @@ public:
 	virtual Enemy& operator=(const Enemy &copyEnemy);
 	virtual ~Enemy();
 
-	virtual void Init();
+	virtual void Init(int turns);
 	
 	//virtual int getEnemyType();
 

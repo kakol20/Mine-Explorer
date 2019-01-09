@@ -8,7 +8,7 @@ Empty::~Empty()
 {
 }
 
-void Empty::Activate()
+void Empty::Activate(Player* player, int turns)
 {
 	m_discovered = true;
 }

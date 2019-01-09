@@ -9,7 +9,7 @@ public:
 	Empty(int x, int y);
 	virtual ~Empty();
 
-	virtual void Activate();
+	virtual void Activate(Player* player, int turns);
 
 private:
 

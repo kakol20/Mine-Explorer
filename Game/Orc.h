@@ -11,7 +11,7 @@ public:
 	virtual Orc& operator=(const Orc &copyOrc);
 	virtual ~Orc();
 
-	virtual void Init();
+	virtual void Init(int turns);
 
 	//virtual int getEnemyType();
 
