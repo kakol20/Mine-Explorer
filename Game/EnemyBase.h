@@ -2,7 +2,6 @@
 #define ENEMYBASE_H
 
 #include "Tile.h"
-#include "Orc.h"
 
 //#include <stdlib.h>
 //#include <time.h>

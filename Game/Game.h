@@ -13,6 +13,8 @@
 //#include "Mine.h"
 //
 #include "Knight.h"
+#include "Archer.h"
+#include "Mage.h"
 //
 #include "Map.h"
 

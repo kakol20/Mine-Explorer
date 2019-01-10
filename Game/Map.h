@@ -14,7 +14,7 @@
 #include "EnemyBase.h"
 #include "Shop.h"
 
-#include "Knight.h"
+#include "Player.h"
 
 //#include "Map.h"
 

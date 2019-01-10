@@ -14,7 +14,7 @@ public:
 	virtual void displayStats();
 	//virtual void Attack();
 
-private:
+//private:
 
 };
 

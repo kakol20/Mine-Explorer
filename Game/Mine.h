@@ -2,7 +2,6 @@
 #define MINE_H
 
 #include "Tile.h"
-#include "Orc.h"
 
 class Mine : public Tile 
 {

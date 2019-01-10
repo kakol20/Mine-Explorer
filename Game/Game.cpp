@@ -27,15 +27,45 @@ void Game::Init()
 	std::cout << "Game initialized\n";
 
 	// Temporary until all classes added (if have time)
-	player = new Knight();
+	std::cout << "Choose a class you want to play as:\n"
+		<< "0. Knight (strength build)\n"
+		<< "1. Mage (intelligence build)\n"
+		<< "2. Archer (dexterity build)\n";
+	int option;
+	std::cin >> option;
+
+	while (std::cin.fail() || /*(option != MOVE && option != QUIT && option != NOTHING && option != INTERACT) */ (option < KNIGHT || option > ARCHER))
+	{
+		// loops infinitely if a letter is inputted if this is not done
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << "\nInvalid input\n";
+		std::cout << "Choose a class you want to play as:\n"
+			<< "0. Knight (strength build)\n"
+			<< "1. Mage (intelligence build)\n"
+			<< "2. Archer (dexterity build)\n";
+		int option;
+		std::cin >> option;
+
+		//std::cout 
+		std::cin >> option;
+	}
+
+	if (option == KNIGHT)
+	{
+		player = new Knight();
+	}
+	else if (option == ARCHER)
+	{
+		player = new Archer();
+	}
+	else if (option == MAGE)
+	{
+		player = new Mage();
+	}
 	player->Init();
 
-	//TODO: Ask what class they want to be in
-
 	map->init(player, m_turns);
-	
-	//grid[test->getPosition().x][test->getPosition().y]->discover();
-	//grid[test->getPosition().x][test->getPosition().y]->discover();
 
 	m_turns = 0;
 
@@ -88,10 +118,9 @@ bool Game::mainLoop()
 
 	// error trapping
 	
-
 	if (map->isOnTileType(player)) 
 	{
-		while (std::cin.fail() || /*(option != MOVE && option != QUIT && option != NOTHING && option != INTERACT) */ (option < MOVE || option > INTERACT))
+		while (std::cin.fail() || (option < MOVE || option > INTERACT))
 		{
 			// loops infinitely if a letter is inputted if this is not done
 			std::cin.clear();
@@ -106,6 +135,7 @@ bool Game::mainLoop()
 			//std::cout 
 			std::cin >> option;
 		}
+		// interact option should only appear if they are on a tile they can interact with
 	}
 	else
 	{

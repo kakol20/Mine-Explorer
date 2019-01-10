@@ -9,6 +9,8 @@
 #include "Base.h"
 
 #include "Player.h"
+//#include "Enemy.h"
+#include "Orc.h"
 
 class Tile {
 public:

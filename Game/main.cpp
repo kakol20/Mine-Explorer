@@ -8,17 +8,22 @@ int main()
 	SetConsoleCP(437);
 	SetConsoleOutputCP(437);
 
-	Game* game = new Game;
 
-	game->Init();
+	while (true)
+	{
+		Game* game = new Game;
 
-	while (game->mainLoop());
+		game->Init();
 
-	system("pause");
-	
-	delete game;
-	game = nullptr;
+		while (game->mainLoop());
 
+		system("pause");
+
+		delete game;
+		game = nullptr;
+
+
+	}
 
 	return 0;
 }

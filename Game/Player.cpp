@@ -43,10 +43,7 @@ void Player::Init()
 	std::cout << "What is your name? ";
 	std::getline(std::cin, m_name);
 
-	m_health = 100;
-
-	// hard code stats for now
-	// TODO: Customisable stats based on the class they chose
+	m_health = 50;
 	m_strength = 5;
 	m_intelligence = 5;
 	m_dexterity = 5;
