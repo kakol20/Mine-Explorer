@@ -152,6 +152,25 @@ void Player::customiseStats(int availablePoints)
 	}
 
 	int toSpend;
+	std::cout << "Chosen: ";
+	switch (option)
+	{
+	case 0:
+		std::cout << "Strength\n";
+		break;
+
+	case 1:
+		std::cout << "Intelligence\n";
+		break;
+
+	case 2:
+		std::cout << "Dexterity\n";
+		break;
+
+	default:
+		break;
+	}
+
 	std::cout << "\nHow many points do you want to spend? max: " << availablePoints << "\n";
 	std::cin >> toSpend;
 

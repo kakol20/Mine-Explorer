@@ -2,6 +2,7 @@
 #define MINE_H
 
 #include "Tile.h"
+#include "Orc.h"
 
 class Mine : public Tile 
 {
@@ -19,10 +20,19 @@ public:
 	int getValue();
 
 	bool isDamaged();
+	bool isEnemySpawned();
 	void setDamage(bool damaged);
+
+	void spawnEnemy();
+
+	int interact(int playerDamage);
 
 private:
 	int m_value;
 	bool m_damaged;
+
+	bool m_enemySpawned;
+
+	Enemy* m_attackingEnemy;
 };
 #endif // !MINE_H

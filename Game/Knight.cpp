@@ -15,14 +15,16 @@ int Knight::calculateDamage()
 	float randInt = (float)(rand() % m_intelligence + 1);
 	float randDxt = (float)(rand() % m_dexterity + 1);
 
-	float total = randStr + (randDxt / 2.0f) + (randInt / 3.0f);
+	float total = (randStr * 0.5f) + (randDxt * 0.33f) + (randInt * 0.17f);
+	//total = total / 3.0f;
 
 	return (int)total;
 }
 
 void Knight::displayStats()
 {
-	int maxDamage = m_strength + (m_dexterity / 2) + (m_intelligence / 3);
+	float maxDamage = (m_strength * 0.5f) + (m_dexterity * 0.33f) + (m_intelligence * 0.17f);
+	//maxDamage = maxDamage / 3;
 
 	std::cout << "Position         - x: " << m_position.x << " y: " << m_position.y << "\n";
 	std::cout << "Gold             - " << m_gold << "\n";
@@ -30,5 +32,5 @@ void Knight::displayStats()
 	std::cout << "Strength         - " << m_strength << "\n";
 	std::cout << "Intelligence     - " << m_intelligence << "\n";
 	std::cout << "Dexterity        - " << m_dexterity << "\n";
-	std::cout << "Possible Max Dmg - " << maxDamage << "\n";
+	std::cout << "Possible Max Dmg - " << (int)maxDamage << "\n";
 }

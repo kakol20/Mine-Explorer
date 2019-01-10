@@ -3,17 +3,25 @@
 Mine::Mine(int x, int y) : Tile(x, y)
 {
 	m_damaged = false;
-
+	m_enemySpawned = false;
 }
 
 Mine::~Mine()
 {
+	if (m_attackingEnemy != nullptr)
+	{
+		delete m_attackingEnemy;
+		m_attackingEnemy = nullptr;
+	}
 }
 
 Mine::Mine(const Mine & copyMine) : Tile(copyMine)
 {
 	m_value = copyMine.m_value;
 	m_damaged = copyMine.m_damaged;
+	m_enemySpawned = copyMine.m_enemySpawned;
+	
+	m_attackingEnemy = copyMine.m_attackingEnemy;
 }
 
 Mine & Mine::operator=(const Mine & copyMine)
@@ -25,6 +33,20 @@ Mine & Mine::operator=(const Mine & copyMine)
 	m_position.x = copyMine.m_position.x;
 	m_position.y = copyMine.m_position.y;
 	m_value = copyMine.m_value;
+
+	if (copyMine.m_attackingEnemy != nullptr)
+	{
+		if (m_attackingEnemy != nullptr)
+		{
+			delete m_attackingEnemy;
+			m_attackingEnemy = nullptr;
+
+			if (dynamic_cast<Orc*>(copyMine.m_attackingEnemy))
+			{
+				m_attackingEnemy = new Orc(*dynamic_cast<Orc*>(copyMine.m_attackingEnemy));
+			}
+		}
+	}
 
 	return *this;
 }
@@ -59,7 +81,130 @@ bool Mine::isDamaged()
 	return m_damaged;
 }
 
+bool Mine::isEnemySpawned()
+{
+	return m_enemySpawned;
+}
+
 void Mine::setDamage(bool damaged)
 {
 	m_damaged = damaged;
+}
+
+void Mine::spawnEnemy()
+{
+	int random = rand() % 3;
+
+	//temp
+	random = 0;
+
+	if (random == 0)
+	{
+		m_attackingEnemy = new Orc();
+
+		m_attackingEnemy->Init(0);
+
+		m_enemySpawned = true;
+	}
+}
+
+int Mine::interact(int playerDamage)
+{
+	int netDamage = 0;
+
+	if (m_damaged)
+	{
+		if (m_enemySpawned)
+		{
+			int enemyDamage = m_attackingEnemy->calculateDamage();
+			netDamage = playerDamage - enemyDamage;
+
+			m_attackingEnemy->displayStats();
+
+			int option;
+
+			for (int i = 0; i < 30; i++)
+			{
+				std::cout << (char)205;
+			}
+			std::cout << "\n";
+
+			std::cout << "Choose an option -\n"
+				<< "0. Attack\n"
+				<< "1. Nothing\n";
+			std::cin >> option;
+
+			while (std::cin.fail() || (option < 0 || option > 1))
+			{
+				// loops infinitely if a letter is inputted if this is not done
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "\nInvalid input\n";
+				std::cout << "Choose an option -\n"
+					<< "0. Attack\n"
+					<< "1. Nothing\n";
+				std::cin >> option;
+			}
+
+			if (option == 0)
+			{
+				std::cout << "Your damage is " << playerDamage << " and the  ";
+
+				if (dynamic_cast<Orc*>(m_attackingEnemy))
+				{
+					std::cout << "Orc's";
+				}
+
+				std::cout << " damage is " << enemyDamage << "\n";
+
+				if (netDamage > 0)
+				{
+					std::cout << "You won against the enemy!\nIt has been killed\n";
+					m_enemySpawned = 0;
+
+					delete m_attackingEnemy;
+					m_attackingEnemy = nullptr;
+				}
+				else if (netDamage < 0)
+				{
+					std::cout << "You lost against the enemy!\nYou lose " << (-1 * netDamage) << " health\n";
+				}
+			}
+		}
+		else
+		{
+			int option;
+
+			for (int i = 0; i < 30; i++)
+			{
+				std::cout << (char)205;
+			}
+			std::cout << "\n";
+
+			std::cout << "Do you want to repair this mine?\n" <<
+				"0. Yes\n" <<
+				"1. No\n";
+			std::cin >> option;
+
+			while (std::cin.fail() || (option < 0 || option > 1))
+			{
+				// loops infinitely if a letter is inputted if this is not done
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "\nInvalid input\n";
+				std::cout << "Do you want to repair this mine?\n" <<
+					"0. Yes\n" <<
+					"1. No\n";
+				std::cin >> option;
+			}
+
+			if (option == 0)
+			{
+				m_damaged = false;
+				netDamage = 0;
+			}
+		}
+	}
+
+	return netDamage;
 }

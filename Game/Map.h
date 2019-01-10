@@ -39,6 +39,8 @@ private:
 	Tile* grid[width][height];
 
 	void displayMiniMap(int yMiniMap, Position playerPos);	
+
+	int m_enemyBaseCount;
 };
 
 #endif // !MAP_H

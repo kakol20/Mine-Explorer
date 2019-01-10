@@ -6,6 +6,7 @@ EnemyBase::EnemyBase(int x, int y) : Tile(x, y)
 
 EnemyBase::EnemyBase(const EnemyBase & copyEnemy) : Tile(copyEnemy)
 {
+	m_enemy = copyEnemy.m_enemy;
 }
 
 EnemyBase & EnemyBase::operator=(const EnemyBase & copyEnemy)
@@ -16,37 +17,33 @@ EnemyBase & EnemyBase::operator=(const EnemyBase & copyEnemy)
 	m_position.x = copyEnemy.m_position.x;
 	m_position.y = copyEnemy.m_position.y;
 
-	if (copyEnemy.enemy != nullptr)
+	if (copyEnemy.m_enemy != nullptr)
 	{
-		if (enemy != nullptr)
+		if (m_enemy != nullptr)
 		{
 			//if ()
 
-			delete enemy;
-			enemy = nullptr;
+			delete m_enemy;
+			m_enemy = nullptr;
 			
-			if (dynamic_cast<Orc*>(copyEnemy.enemy))
+			if (dynamic_cast<Orc*>(copyEnemy.m_enemy))
 			{
-				enemy = new Orc();
-
-				enemy = copyEnemy.enemy;
+				m_enemy = new Orc(*dynamic_cast<Orc*>(copyEnemy.m_enemy));
 			}
 		}
 	}
-
-	
 
 	return *this;
 }
 
 EnemyBase::~EnemyBase()
 {
-	if (enemy != nullptr)
+	if (m_enemy != nullptr)
 	{
 		//if ()
 
-		delete enemy;
-		enemy = nullptr;
+		delete m_enemy;
+		m_enemy = nullptr;
 	}
 }
 
@@ -61,8 +58,8 @@ void EnemyBase::Activate(Player* player, int turns)
 
 		if (chosen == ORC)
 		{
-			enemy = new Orc();
-			enemy->Init(turns);
+			m_enemy = new Orc();
+			m_enemy->Init(turns);
 		}
 
 		m_discovered = true;
@@ -70,14 +67,14 @@ void EnemyBase::Activate(Player* player, int turns)
 	}
 }
 
-int EnemyBase::getDamage()
-{
-	return enemy->calculateDamage();
-}
+//int EnemyBase::getDamage()
+//{
+//	return m_enemy->calculateDamage();
+//}
 
 int EnemyBase::getEnemyType()
 {
-	if (dynamic_cast<Orc*>(enemy))
+	if (dynamic_cast<Orc*>(m_enemy))
 	{
 		return ORC;
 	}
@@ -85,13 +82,13 @@ int EnemyBase::getEnemyType()
 
 int EnemyBase::interact(int playerDamage)
 {
-	int enemyDamage = enemy->calculateDamage();
+	int enemyDamage = m_enemy->calculateDamage();
 
 	// player must get damage value higher than enemy's damage
 	// if player gets lower, the damage done to their health is the difference
 	int netDamageToPlayer = playerDamage - enemyDamage;
 
-	enemy->displayStats();
+	m_enemy->displayStats();
 
 	int option;
 
@@ -123,7 +120,7 @@ int EnemyBase::interact(int playerDamage)
 	{
 		std::cout << "Your damage is " << playerDamage << " and the  ";
 
-		if (dynamic_cast<Orc*>(enemy))
+		if (dynamic_cast<Orc*>(m_enemy))
 		{
 			std::cout << "Orc's";
 		}

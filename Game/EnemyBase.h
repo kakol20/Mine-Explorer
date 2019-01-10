@@ -17,14 +17,14 @@ public:
 
 	virtual void Activate(Player* player, int turns);
 
-	int getDamage();
+	//int getDamage();
 	int getEnemyType();
 
 	int interact(int playerDamage);
 
 private:
 
-	Enemy * enemy;
+	Enemy * m_enemy;
 };
 
 #endif // !ENEMYBASE_H

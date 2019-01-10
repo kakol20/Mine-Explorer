@@ -75,17 +75,11 @@ bool Game::mainLoop()
 	std::cout << "\n";
 
 	// ---------- OUTPUT INTERFACE ----------
-	/*std::cout << "Choose an option:\n" <<
-		"0: Move\n" <<
-		"1: Quit\n";
-	std::cin >> option;*/
 
 	std::cout << "Choose an option:\n" <<
 		"0: Move\n" <<
-		"1: Nothing\n"
+		"1: Nothing\n" <<
 		"2: Quit\n";
-
-	/*if (dynamic_cast<Mine*>(grid[player->getPosition().x][pla]))*/
 	if (map->isOnTileType(player))
 	{
 		std::cout << "3: Interact with tile\n";
@@ -93,6 +87,7 @@ bool Game::mainLoop()
 	std::cin >> option;
 
 	// error trapping
+	
 
 	if (map->isOnTileType(player)) 
 	{
@@ -104,8 +99,8 @@ bool Game::mainLoop()
 			std::cout << "\nInvalid input\n";
 			std::cout << "Choose an option:\n" <<
 				"0: Move\n" <<
-				"1: Nothing\n"
-				"2: Quit\n"
+				"1: Nothing\n" <<
+				"2: Quit\n" <<
 				"3: Interact with tile\n";
 
 			//std::cout 
@@ -122,7 +117,7 @@ bool Game::mainLoop()
 			std::cout << "\nInvalid input\n";
 			std::cout << "Choose an option:\n" <<
 				"0: Move\n" <<
-				"1: Nothing\n"
+				"1: Nothing\n" <<
 				"2: Quit\n";
 
 			std::cin >> option;

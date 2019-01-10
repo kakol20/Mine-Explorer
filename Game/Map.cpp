@@ -44,6 +44,20 @@ Map::~Map()
 
 void Map::init(Player* player, int turns)
 {
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			if (grid[x][y] != nullptr)
+			{
+				delete grid[x][y];
+				grid[x][y] = nullptr;
+			}
+
+		}
+	}
+	m_enemyBaseCount = 0;
+
 	//Position pos = player->getPosition();//player->getPosition();
 	Position playerPos = player->getPosition();
 
@@ -94,6 +108,7 @@ void Map::init(Player* player, int turns)
 		}
 
 		grid[randX][randY] = new EnemyBase(randX, randY);
+		m_enemyBaseCount++;
 
 		for (int i = randX - 1; i <= randX + 1; i++)
 		{
@@ -382,12 +397,17 @@ void Map::revealNear(int x, int y, Player* player, int turns)
 
 void Map::nextTurn(Player * player, int turns)
 {
+	int chance = rand() % 20; // 1 in 20 chance of spawning an enemy on
+	int chosenMine = rand() & maxMines;
+	int count = 0;
+
 	for (int x = 0; x < width; x++)
 	{
 		for (int y = 0; y < height; y++)
 		{
 			if (grid[x][y]->isDiscovered())
 			{
+
 				// goes through every discovered mine
 				if (dynamic_cast<Mine*>(grid[x][y]))
 				{
@@ -396,23 +416,44 @@ void Map::nextTurn(Player * player, int turns)
 					// mine will not give gold if it's damaged by an enemy
 					if (!mine->isDamaged())
 					{
-						player->addGold(mine->getValue());
-					}
-					else {
+						if (chance == 0)
+						{
+							if (count == chosenMine)
+							{
+								mine->spawnEnemy();
 
+								std::cout << "Enemy spawned at (" << x << ", " << y << ")!\n";
+
+								mine->setDamage(true);
+							}
+						}
+						else
+						{
+							player->addGold(mine->getValue());
+						}
+
+						count++;
 					}
+					else
+					{
+						count = maxMines * -2;
+					}
+					
 				}
 			}
 		}
 	}
-
 }
 
-bool Map::isOnTileType(Player * player) //TODO: Not working
+bool Map::isOnTileType(Player * player)
 {
 	if (dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
-		return true;
+		Mine* mine = dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]);
+		if (mine->isDamaged())
+		{
+			return true;
+		}
 	}
 	else if (dynamic_cast<EnemyBase*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
@@ -435,14 +476,13 @@ void Map::interact(Player * player, int turns)
 
 		if (mine->isDamaged())
 		{
-			/*TODO: All will happen in Mine class
-				1. Check for enemy within Mine class
-					a. Player must defeat enemy first
-						i. Spawned enemy will always be weaker than the player
-				2. If not, ask player if they want to repair the mine
-					a. This will take a turn to do
 
-			*/
+			int netDamage = mine->interact(player->calculateDamage());
+
+			if (netDamage < 0)
+			{
+				player->changeHealth(netDamage);
+			}
 		}
 	}
 	else if (dynamic_cast<EnemyBase*>(grid[pos.x][pos.y]))
@@ -452,18 +492,7 @@ void Map::interact(Player * player, int turns)
 		/*TODO: All will happen in EnemyBase class
 			1. Ask player if they want to attack enemy
 				a. (OPTIONAL) Different attacks based on the player's class?
-				b. Player must get a hybrid (calculated and randomised) value above enemy's strength
-					  i. Different classes will use one main stat with the rest or less as minor stats
-					 ii. The knight will use strength as main stat with a small consideration of their dexterity (to determine accuracy and damage)
-					iii. The mage will use intelligence as main stat with a small consideration of their dexterity (to determine accuracy and damage)
-					 iv. The archer will use dexterity as main stat with a small consideration of their strength (to determine accuracy and damage)
-			2. Player can choose to leave enemy alone, but the enemy will get stroner later on
-			3. Player can choose to flee if they feel that they will lose
-			
 		*/
-		//std::cout << "There s"
-		//int enemyType = base->getEnemyType();
-
 		int netDamage = base->interact(player->calculateDamage());
 
 		if (netDamage > 0) // player won
@@ -472,6 +501,7 @@ void Map::interact(Player * player, int turns)
 			delete grid[pos.x][pos.y];
 			grid[pos.x][pos.y] = new Empty(pos.x, pos.y);
 			grid[pos.x][pos.y]->Activate(player, turns);
+			m_enemyBaseCount--;
 
 			system("pause");
 
@@ -481,12 +511,11 @@ void Map::interact(Player * player, int turns)
 		{
 			player->changeHealth(netDamage);
 		}
-		
-		//base.
 
 	}
 	// TODO: Add a shop to increase player stats and max health - or if not enough time, increase stats everytime player wins
 
 	//if (dynamic_cast<grid[])
+	//fdd
 
 }
