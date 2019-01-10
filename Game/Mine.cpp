@@ -123,12 +123,6 @@ int Mine::interact(int playerDamage)
 
 			int option;
 
-			for (int i = 0; i < 30; i++)
-			{
-				std::cout << (char)205;
-			}
-			std::cout << "\n";
-
 			std::cout << "Choose an option -\n"
 				<< "0. Attack\n"
 				<< "1. Nothing\n";

@@ -122,6 +122,31 @@ void Player::changeHealth(int delta)
 	m_health += delta;
 }
 
+int Player::getGold()
+{
+	return m_gold;
+}
+
+void Player::changeStat(int itemID, int value)
+{
+	if (itemID >= S_STR && itemID <= L_STR)
+	{
+		m_strength += value;
+	}
+	else if (itemID >= S_INT && itemID <= L_INT)
+	{
+		m_intelligence += value;
+	}
+	else if (itemID >= S_DXT && itemID <= L_DXT)
+	{
+		m_dexterity += value;
+	}
+	else if (itemID >= S_HLTH && itemID <= L_HLTH)
+	{
+		m_health += value;
+	}
+}
+
 void Player::customiseStats(int availablePoints)
 {
 	int option;

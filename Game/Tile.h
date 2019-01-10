@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <string>
 
 #include "Base.h"
 
@@ -27,7 +28,6 @@ public:
 	//void discover();
 
 	void setDiscovered(bool discovered);
-
 
 	Position getPosition();
 

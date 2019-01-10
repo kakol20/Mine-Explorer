@@ -72,13 +72,15 @@ void EnemyBase::Activate(Player* player, int turns)
 //	return m_enemy->calculateDamage();
 //}
 
-int EnemyBase::getEnemyType()
-{
-	if (dynamic_cast<Orc*>(m_enemy))
-	{
-		return ORC;
-	}
-}
+//int EnemyBase::getEnemyType()
+//{
+//	if (dynamic_cast<Orc*>(m_enemy))
+//	{
+//		return ORC;
+//	}
+//
+//	return -1;
+//}
 
 int EnemyBase::interact(int playerDamage)
 {

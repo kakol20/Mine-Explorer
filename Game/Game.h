@@ -9,11 +9,11 @@
 
 #include "Base.h"
 
-#include "Empty.h"
-#include "Mine.h"
-
+//#include "Empty.h"
+//#include "Mine.h"
+//
 #include "Knight.h"
-
+//
 #include "Map.h"
 
 class Game 

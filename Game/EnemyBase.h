@@ -18,7 +18,7 @@ public:
 	virtual void Activate(Player* player, int turns);
 
 	//int getDamage();
-	int getEnemyType();
+	//int getEnemyType();
 
 	int interact(int playerDamage);
 

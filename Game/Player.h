@@ -28,6 +28,8 @@ public:
 	void addGold(int add);
 	void removeGold(int remove);
 	void changeHealth(int delta);
+	int getGold();
+	void changeStat(int itemID, int value);
 
 	void customiseStats(int availablePoints);
 

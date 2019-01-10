@@ -125,6 +125,36 @@ void Map::init(Player* player, int turns)
 		}
 	}
 
+	// --------------- SPAWNS SHOP ---------------
+	for (int i = 0; i < maxShops; i++)
+	{
+		int randX = rand() % width;
+		int randY = rand() % height;
+
+		while (grid[randX][randY] != nullptr || (randX == playerPos.x && randY == playerPos.y))
+		{
+			randX = rand() % width;
+			randY = rand() % height;
+		}
+
+		grid[randX][randY] = new Shop(randX, randY);
+		m_enemyBaseCount++;
+
+		for (int i = randX - 1; i <= randX + 1; i++)
+		{
+			for (int j = randY - 1; j <= randY + 1; j++)
+			{
+				if (i >= 0 && j >= 0 && i < width && j < height)
+				{
+					if (grid[i][j] == nullptr)
+					{
+						grid[i][j] = new Empty(i, j);
+					}
+				}
+			}
+		}
+	}
+
 	// Any other tile will be empty
 	for (int x = 0; x < width; x++)
 	{
@@ -266,6 +296,10 @@ void Map::draw(Position playerPos)
 				{
 					std::cout << " E ";
 				}
+				else if (dynamic_cast<Shop*>(grid[x][y]))
+				{
+					std::cout << " S ";
+				}
 				else
 				{
 					std::cout << "   ";
@@ -339,6 +373,10 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 				{
 					std::cout << "E ";
 				}
+				else if (dynamic_cast<Shop*>(grid[xMiniMap][yMiniMap]))
+				{
+					std::cout << "S ";
+				}
 				else
 				{
 					std::cout << "  ";
@@ -371,6 +409,10 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 		std::cout << "E = enemy base";
 	}
 	else if (yMiniMap == height + 4)
+	{
+		std::cout << "S = shop";
+	}
+	else if (yMiniMap == height + 5)
 	{
 		std::cout << (char)254 << " = undiscovered area";
 	}
@@ -459,10 +501,12 @@ bool Map::isOnTileType(Player * player)
 	{
 		return true;
 	}
-	else
+	else if (dynamic_cast<Shop*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
-		return false;
+		return true;
 	}
+	
+	return false;
 }
 
 void Map::interact(Player * player, int turns)
@@ -513,7 +557,12 @@ void Map::interact(Player * player, int turns)
 		}
 
 	}
-	// TODO: Add a shop to increase player stats and max health - or if not enough time, increase stats everytime player wins
+	else if (dynamic_cast<Shop*>(grid[pos.x][pos.y]))
+	{
+		Shop* shop = dynamic_cast<Shop*>(grid[pos.x][pos.y]);
+
+		shop->buy(player);
+	}
 
 	//if (dynamic_cast<grid[])
 	//fdd

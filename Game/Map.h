@@ -12,6 +12,7 @@
 #include "Empty.h"
 #include "Mine.h"
 #include "EnemyBase.h"
+#include "Shop.h"
 
 #include "Knight.h"
 
