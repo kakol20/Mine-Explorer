@@ -25,9 +25,9 @@ Witch::~Witch()
 
 void Witch::Init(int turns)
 {
-	m_intelligence = rand() % 5 + (10 + (turns / 10));
-	m_dexterity = rand() % 5 + (5 + (turns / 10));
-	m_strength = rand() % 3 + (3 + (turns / 10));
+	m_intelligence = rand() % 5 + (10 + (turns / 5));
+	m_dexterity = rand() % 5 + (5 + (turns / 5));
+	m_strength = rand() % 3 + (3 + (turns / 5));
 }
 
 int Witch::calculateDamage()
