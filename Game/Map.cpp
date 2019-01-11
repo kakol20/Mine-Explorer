@@ -13,17 +13,6 @@ Map::Map()
 
 		}
 	}
-
-	/*for (int x = 0; x < width; x++)
-	{
-		for (int y = 0; y < height; y++)
-		{
-
-			grid[x][y] = new Empty(x, y);
-
-		}
-	}*/
-
 }
 
 Map::~Map()
@@ -567,4 +556,29 @@ void Map::interact(Player * player, int turns)
 	//if (dynamic_cast<grid[])
 	//fdd
 
+}
+
+bool Map::isComplete()
+{
+	for (int x = 0; x < width; x++)
+	{
+		for (int y = 0; y < height; y++)
+		{
+			if (dynamic_cast<EnemyBase*>(grid[x][y]))
+			{
+				return false;
+			}
+			else if (dynamic_cast<Mine*>(grid[x][y]))
+			{
+				Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
+
+				if (mine->isEnemySpawned())
+				{
+					return false;
+				}
+			}
+		}
+	}
+
+	return true;
 }

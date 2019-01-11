@@ -77,133 +77,144 @@ bool Game::mainLoop()
 
 	bool loop = true;
 
-	// ---------- DRAW MAIN MAP AND MINIMAP ----------
-
-	map->draw(player->getPosition() );
-
-	//std::cout << "---------------\n";
-	// https://en.wikipedia.org/wiki/Code_page_437#Character_set
-	for (int i = 0; i < 37; i++)
+	if (player->getHealth() <= 0)
 	{
-		std::cout << (char)205;
+		system("cls");
+		std::cout << "Game Over! You died!\n";
+		loop = false;
 	}
-	std::cout << (char)188;
-
-	std::cout << "\n";
-
-	// ---------- OUTPUT PLAYER STATS ----------
-	std::cout << "Turn " << m_turns << "\n";
-
-	player->displayStats();
-
-	int option = 10000;
-
-	for (int i = 0; i < 30; i++)
+	else if (map->isComplete())
 	{
-		std::cout << (char)205;
-	}
-	std::cout << "\n";
-
-	// ---------- OUTPUT INTERFACE ----------
-
-	std::cout << "Choose an option:\n" <<
-		"0: Move\n" <<
-		"1: Nothing\n" <<
-		"2: Quit\n";
-	if (map->isOnTileType(player))
-	{
-		std::cout << "3: Interact with tile\n";
-	}
-	std::cin >> option;
-
-	// error trapping
-	
-	if (map->isOnTileType(player)) 
-	{
-		while (std::cin.fail() || (option < MOVE || option > INTERACT))
-		{
-			// loops infinitely if a letter is inputted if this is not done
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "\nInvalid input\n";
-			std::cout << "Choose an option:\n" <<
-				"0: Move\n" <<
-				"1: Nothing\n" <<
-				"2: Quit\n" <<
-				"3: Interact with tile\n";
-
-			//std::cout 
-			std::cin >> option;
-		}
-		// interact option should only appear if they are on a tile they can interact with
+		system("cls");
+		std::cout << "Congratulations! You won!\n"
+			<< "You completed in " << m_turns << " turns\n";
+		loop = false;
 	}
 	else
 	{
-		while (std::cin.fail() || (option < MOVE || option > QUIT))
-		{
-			// loops infinitely if a letter is inputted if this is not done
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			std::cout << "\nInvalid input\n";
-			std::cout << "Choose an option:\n" <<
-				"0: Move\n" <<
-				"1: Nothing\n" <<
-				"2: Quit\n";
+		// ---------- DRAW MAIN MAP AND MINIMAP ----------
 
-			std::cin >> option;
+		map->draw(player->getPosition());
+
+		//std::cout << "---------------\n";
+		// https://en.wikipedia.org/wiki/Code_page_437#Character_set
+		for (int i = 0; i < 37; i++)
+		{
+			std::cout << (char)205;
 		}
-	}
+		std::cout << (char)188;
 
-	for (int i = 0; i < 30; i++)
-	{
-		std::cout << (char)205;
-	}
-	std::cout << "\n";
+		std::cout << "\n";
 
-	if (option == MOVE)
-	{
-		// player can input 100 directions
-		char directions[100];
+		// ---------- OUTPUT PLAYER STATS ----------
+		std::cout << "Turn " << m_turns << "\n";
 
-		do
+		player->displayStats();
+
+		int option = 10000;
+
+		for (int i = 0; i < 30; i++)
 		{
-			std::cout << "Choose direction to move\n 'n' for north, 'e' for east, 's' for south & 'w' for west\n";
-			std::cout << "Tip: you can type multiple directions to move more than once\n";
-			std::cin >> directions;
-		} while (!player->checkInput(directions));
+			std::cout << (char)205;
+		}
+		std::cout << "\n";
 
-		for (int i = 0; i < (int)strlen(directions); i++) {
-			// what to type to reveal map : nnnnnneeeeeesssssssssssswwwwwwwwwwwwnnnnnnnnnnnneeessssssssseeeeeennnnnn
-			player->Move(directions[i]);
+		// ---------- OUTPUT INTERFACE ----------
 
-			map->revealNear(player->getPosition().x, player->getPosition().y, player, m_turns);
+		std::cout << "Choose an option:\n" <<
+			"0: Move\n" <<
+			"1: Nothing\n" <<
+			"2: Quit\n";
+		if (map->isOnTileType(player))
+		{
+			std::cout << "3: Interact with tile\n";
+		}
+		std::cin >> option;
 
-			// each movement will take one turn
+		// error trapping
+
+		if (map->isOnTileType(player))
+		{
+			while (std::cin.fail() || (option < MOVE || option > INTERACT))
+			{
+				// loops infinitely if a letter is inputted if this is not done
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "\nInvalid input\n";
+				std::cout << "Choose an option:\n" <<
+					"0: Move\n" <<
+					"1: Nothing\n" <<
+					"2: Quit\n" <<
+					"3: Interact with tile\n";
+
+				//std::cout 
+				std::cin >> option;
+			}
+			// interact option should only appear if they are on a tile they can interact with
+		}
+		else
+		{
+			while (std::cin.fail() || (option < MOVE || option > QUIT))
+			{
+				// loops infinitely if a letter is inputted if this is not done
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				std::cout << "\nInvalid input\n";
+				std::cout << "Choose an option:\n" <<
+					"0: Move\n" <<
+					"1: Nothing\n" <<
+					"2: Quit\n";
+
+				std::cin >> option;
+			}
+		}
+
+		for (int i = 0; i < 30; i++)
+		{
+			std::cout << (char)205;
+		}
+		std::cout << "\n";
+
+		if (option == MOVE)
+		{
+			// player can input 100 directions
+			char directions[100];
+
+			do
+			{
+				std::cout << "Choose direction to move\n 'n' for north, 'e' for east, 's' for south & 'w' for west\n";
+				std::cout << "Tip: you can type multiple directions to move more than once\n";
+				std::cin >> directions;
+			} while (!player->checkInput(directions));
+
+			for (int i = 0; i < (int)strlen(directions); i++) {
+				// what to type to reveal map : nnnnnneeeeeesssssssssssswwwwwwwwwwwwnnnnnnnnnnnneeessssssssseeeeeennnnnn
+				player->Move(directions[i]);
+
+				map->revealNear(player->getPosition().x, player->getPosition().y, player, m_turns);
+
+				// each movement will take one turn
+				nextTurn();
+
+				//system("pause");
+			}
+			system("pause");
+		}
+		else if (option == QUIT)
+		{
+			loop = false;
+		}
+		else if (option == NOTHING)
+		{
 			nextTurn();
-
-			//system("pause");
 		}
-		system("pause");
-	}
-	else if (option == QUIT)
-	{
-		loop = false;
-	}
-	else if (option == NOTHING)
-	{
-		nextTurn();
-	}
-	else if (option == INTERACT)
-	{
-		map->interact(player, m_turns);
+		else if (option == INTERACT)
+		{
+			map->interact(player, m_turns);
 
-		system("pause");
+			system("pause");
+		}
 	}
-	/*else 
-	{
-		std::cout << "Invalid input\n";
-		mainLoop();
-	}*/
 	
 	return loop;
 }

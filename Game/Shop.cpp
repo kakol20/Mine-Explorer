@@ -77,6 +77,8 @@ void Shop::buy(Player * player)
 
 			std::cout << getPotionValue(itemID) << " " << getStatName(itemID) << "\n";
 			player->changeStat(itemID, getPotionValue(itemID));
+
+			player->removeGold(getPotionCost(itemID));
 		}	
 	}
 }

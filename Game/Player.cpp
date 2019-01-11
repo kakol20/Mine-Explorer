@@ -124,6 +124,11 @@ int Player::getGold()
 	return m_gold;
 }
 
+int Player::getHealth()
+{
+	return m_health;
+}
+
 void Player::changeStat(int itemID, int value)
 {
 	if (itemID >= S_STR && itemID <= L_STR)

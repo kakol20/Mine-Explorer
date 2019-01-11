@@ -34,6 +34,7 @@ public:
 	bool isOnTileType(Player* player);
 	void interact(Player* player, int turns);
 
+	bool isComplete();
 
 private:
 
