@@ -4,7 +4,7 @@ Orc::Orc() : Enemy()
 {
 }
 
-Orc::Orc(const Orc & copyOrc)
+Orc::Orc(const Orc & copyOrc) : Enemy(copyOrc)
 {
 }
 

@@ -30,6 +30,14 @@ EnemyBase & EnemyBase::operator=(const EnemyBase & copyEnemy)
 			{
 				m_enemy = new Orc(*dynamic_cast<Orc*>(copyEnemy.m_enemy));
 			}
+			else if (dynamic_cast<Witch*>(copyEnemy.m_enemy))
+			{
+				m_enemy = new Witch(*dynamic_cast<Witch*>(copyEnemy.m_enemy));
+			}
+			else if (dynamic_cast<Goblin*>(copyEnemy.m_enemy))
+			{
+				m_enemy = new Goblin(*dynamic_cast<Goblin*>(copyEnemy.m_enemy));
+			}
 		}
 	}
 
@@ -54,11 +62,21 @@ void EnemyBase::Activate(Player* player, int turns)
 		int chosen = rand() % 3;
 
 
-		chosen = ORC; // temporary
+		//chosen = ORC; // temporary
 
 		if (chosen == ORC)
 		{
 			m_enemy = new Orc();
+			m_enemy->Init(turns);
+		}
+		else if (chosen == WITCH)
+		{
+			m_enemy = new Witch();
+			m_enemy->Init(turns);
+		}
+		else if (chosen == GOBLIN)
+		{
+			m_enemy = new Goblin();
 			m_enemy->Init(turns);
 		}
 
@@ -120,13 +138,20 @@ int EnemyBase::interact(int playerDamage)
 	
 	if (option == 0)
 	{
-		std::cout << "Your damage is " << playerDamage << " and the  ";
+		std::cout << "Your damage is " << playerDamage << " and the ";
 
 		if (dynamic_cast<Orc*>(m_enemy))
 		{
 			std::cout << "Orc's";
 		}
-
+		else if (dynamic_cast<Witch*>(m_enemy))
+		{
+			std::cout << "Witch's";
+		}
+		else if (dynamic_cast<Goblin*>(m_enemy))
+		{
+			std::cout << "Goblin's";
+		}
 		std::cout << " damage is " << enemyDamage << "\n";
 
 		if (netDamageToPlayer > 0)

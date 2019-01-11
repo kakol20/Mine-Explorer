@@ -11,6 +11,8 @@
 #include "Player.h"
 //#include "Enemy.h"
 #include "Orc.h"
+#include "Witch.h"
+#include "Goblin.h"
 
 class Tile {
 public:

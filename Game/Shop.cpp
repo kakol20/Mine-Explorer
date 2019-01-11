@@ -173,7 +173,7 @@ int Shop::getPotionCost(int itemID)
 	}
 	else if (itemID == M_DXT || itemID == M_HLTH || itemID == M_INT || itemID == M_STR)
 	{
-		return 25;
+		return 20;
 	}
 	else if (itemID == L_DXT || itemID == L_HLTH || itemID == L_INT || itemID == L_STR)
 	{
@@ -190,11 +190,11 @@ int Shop::getPotionValue(int itemID)
 	}
 	else if (itemID == M_DXT || itemID == M_HLTH || itemID == M_INT || itemID == M_STR)
 	{
-		return 6;
+		return 15;
 	}
 	else if (itemID == L_DXT || itemID == L_HLTH || itemID == L_INT || itemID == L_STR)
 	{
-		return 9;
+		return 39;
 	}
 	return 0;
 }

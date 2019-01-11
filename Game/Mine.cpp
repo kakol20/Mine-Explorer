@@ -45,6 +45,14 @@ Mine & Mine::operator=(const Mine & copyMine)
 			{
 				m_attackingEnemy = new Orc(*dynamic_cast<Orc*>(copyMine.m_attackingEnemy));
 			}
+			else if (dynamic_cast<Witch*>(copyMine.m_attackingEnemy))
+			{
+				m_attackingEnemy = new Witch(*dynamic_cast<Witch*>(copyMine.m_attackingEnemy));
+			}
+			else if (dynamic_cast<Goblin*>(copyMine.m_attackingEnemy))
+			{
+				m_attackingEnemy = new Goblin(*dynamic_cast<Goblin*>(copyMine.m_attackingEnemy));
+			}
 		}
 	}
 
@@ -96,11 +104,27 @@ void Mine::spawnEnemy()
 	int random = rand() % 3;
 
 	//temp
-	random = 0;
+	//random = 0;
 
-	if (random == 0)
+	if (random == ORC)
 	{
 		m_attackingEnemy = new Orc();
+
+		m_attackingEnemy->Init(0);
+
+		m_enemySpawned = true;
+	}
+	else if (random == WITCH)
+	{
+		m_attackingEnemy = new Witch();
+
+		m_attackingEnemy->Init(0);
+
+		m_enemySpawned = true;
+	}
+	else if (random == GOBLIN)
+	{
+		m_attackingEnemy = new Goblin();
 
 		m_attackingEnemy->Init(0);
 
@@ -147,6 +171,14 @@ int Mine::interact(int playerDamage)
 				if (dynamic_cast<Orc*>(m_attackingEnemy))
 				{
 					std::cout << "Orc's";
+				}
+				else if (dynamic_cast<Witch*>(m_attackingEnemy))
+				{
+					std::cout << "Witch's";
+				}
+				else if (dynamic_cast<Goblin*>(m_attackingEnemy))
+				{
+					std::cout << "Goblin's";
 				}
 
 				std::cout << " damage is " << enemyDamage << "\n";

@@ -19,7 +19,7 @@ public:
 
 	virtual void displayStats();
 
-private:
+//private:
 
 };
 
