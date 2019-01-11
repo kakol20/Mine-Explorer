@@ -28,24 +28,26 @@ void Shop::Activate(Player * player, int turns)
 	{
 		m_discovered = true;
 
+		// randomly picks a potion for the shop's inventory
 		for (int i = 0; i < 5; i++)
 		{
 			m_available[i] = rand() % (L_HLTH + 1);
 		}
+		// a shop will always have a small health potion just in case it is not randomly chosen
 		m_available[0] = S_HLTH;
 
 		std::cout << "You have discovered a shop at (" << m_position.x << ", " << m_position.y << ")\n";
-		
 	}
 }
 
 void Shop::buy(Player * player)
 {
+	// shows what the player can buy
 	std::cout << "Shop Inventory:\n";
 
 	int option;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; i++) // prints out all the available potions
 	{
 		std::cout << i << ". " << getPotionName(m_available[i]) << " - " << getPotionCost(m_available[i]) << " gold\n";
 	}
@@ -53,6 +55,7 @@ void Shop::buy(Player * player)
 	std::cout << "5. Exit\n" << "Choose an option from the above\n";
 	std::cin >> option;
 
+	// error trapping
 	while (std::cin.fail() || (option < 0 || option > 5))
 	{
 		// loops infinitely if a letter is inputted if this is not done
@@ -63,16 +66,18 @@ void Shop::buy(Player * player)
 
 		std::cin >> option;
 	}
-	int itemID = m_available[option];
+	int itemID = m_available[option]; // get the potion's item ID
 
 	if (option >= 0 && option <= 4)
 	{
+		// prevents player from buying something they cannot afford
 		if (player->getGold() < getPotionCost(itemID))
 		{
 			std::cout << "You do not have enough gold!\n";
 		}
 		else
 		{
+			// alerts the player the effect of the potion
 			std::cout << "You gained: ";
 
 			std::cout << getPotionValue(itemID) << " " << getStatName(itemID) << "\n";
@@ -173,11 +178,11 @@ int Shop::getPotionCost(int itemID)
 	}
 	else if (itemID == M_DXT || itemID == M_HLTH || itemID == M_INT || itemID == M_STR)
 	{
-		return 20;
+		return 17;
 	}
 	else if (itemID == L_DXT || itemID == L_HLTH || itemID == L_INT || itemID == L_STR)
 	{
-		return 50;
+		return 30;
 	}
 	return 0;
 }
@@ -190,11 +195,11 @@ int Shop::getPotionValue(int itemID)
 	}
 	else if (itemID == M_DXT || itemID == M_HLTH || itemID == M_INT || itemID == M_STR)
 	{
-		return 15;
+		return 11;
 	}
 	else if (itemID == L_DXT || itemID == L_HLTH || itemID == L_INT || itemID == L_STR)
 	{
-		return 39;
+		return 20;
 	}
 	return 0;
 }

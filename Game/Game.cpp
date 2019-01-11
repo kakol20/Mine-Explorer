@@ -26,7 +26,6 @@ void Game::Init()
 {
 	std::cout << "Game initialized\n";
 
-	// Temporary until all classes added (if have time)
 	std::cout << "Choose a class you want to play as:\n"
 		<< "0. Knight (strength build)\n"
 		<< "1. Mage (intelligence build)\n"
@@ -34,9 +33,9 @@ void Game::Init()
 	int option;
 	std::cin >> option;
 
-	while (std::cin.fail() || /*(option != MOVE && option != QUIT && option != NOTHING && option != INTERACT) */ (option < KNIGHT || option > ARCHER))
+	while (std::cin.fail() || (option < KNIGHT || option > ARCHER)) // prevents letters from being inputted
 	{
-		// loops infinitely if a letter is inputted if this is not done
+		
 		std::cin.clear();
 		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::cout << "\nInvalid input\n";
@@ -51,6 +50,7 @@ void Game::Init()
 		std::cin >> option;
 	}
 
+	// assigns player class based on chosen class
 	if (option == KNIGHT)
 	{
 		player = new Knight();
@@ -98,7 +98,7 @@ bool Game::mainLoop()
 		std::cout << "Game Over! You died!\n";
 		loop = false;
 	}
-	else if (map->isComplete())
+	else if (map->isComplete()) // check for quest complete
 	{
 		system("cls");
 		std::cout << "Congratulations! You won!\n"

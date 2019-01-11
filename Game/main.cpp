@@ -16,7 +16,7 @@ int main()
 
 	while (true)
 	{
-		Game* game = new Game;
+		Game* game = new Game; // start game
 
 		game->Init();
 
@@ -48,7 +48,7 @@ int main()
 
 		if (option == 1)
 		{
-			break;
+			break; // end game
 		}
 	}
 

@@ -38,7 +38,7 @@ int Goblin::calculateDamage()
 	int randDxt = (rand() % m_dexterity + 1);
 
 	//float total = randStr + (randDxt / 2.0f) + (randInt / 3.0f);
-	float total = (randDxt * 0.5f) + (randStr * 0.33f) + (randInt * 0.17f);
+	float total = (randDxt * 0.5f) + (randStr * 0.33f) + (randInt * 0.17f); // unique way to calculate damage compared to other enemy classes
 
 	return (int)total;
 }

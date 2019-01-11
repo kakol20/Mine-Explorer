@@ -43,19 +43,20 @@ void Player::Init()
 	std::cout << "What is your name? ";
 	std::getline(std::cin, m_name);
 
+	// defualt values
 	m_health = 50;
 	m_strength = 5;
 	m_intelligence = 5;
 	m_dexterity = 5;
 
-	displayStats();
+	//displayStats();
 
 	m_position.x = width / 2;
 	m_position.y = height / 2;
 
 	m_gold = 0;
 
-	customiseStats(20);
+	customiseStats(15);
 }
 
 void Player::Move(char direction)
@@ -64,6 +65,7 @@ void Player::Move(char direction)
 	int chosen;
 	std::cin >> chosen;*/
 
+	// movement using letters
 	switch (direction) {
 		case 'n':
 			if (m_position.y > 0) {
@@ -96,12 +98,13 @@ void Player::Move(char direction)
 
 void Player::displayStats()
 {
-	std::cout << "Position     - x: " << m_position.x << " y: " << m_position.y << "\n";
-	std::cout << "Gold         - " << m_gold << "\n";
-	std::cout << "Health       - " << m_health << "\n";
-	std::cout << "Strength     - " << m_strength << "\n";
-	std::cout << "Intelligence - " << m_intelligence << "\n";
-	std::cout << "Dexterity    - " << m_dexterity << "\n";
+	std::cout << "Position         - x: " << m_position.x << " y: " << m_position.y << "\n";
+	std::cout << "Gold             - " << m_gold << "\n";
+	std::cout << "Health           - " << m_health << "\n";
+	std::cout << "Strength         - " << m_strength << "\n";
+	std::cout << "Intelligence     - " << m_intelligence << "\n";
+	std::cout << "Dexterity        - " << m_dexterity << "\n";
+	std::cout << "Possible Max Dmg - N/A \n";
 }
 
 void Player::addGold(int add)
@@ -198,7 +201,7 @@ void Player::customiseStats(int availablePoints)
 		break;
 	}
 
-	std::cout << "\nHow many points do you want to spend? max: " << availablePoints << "\n";
+	std::cout << "How many points do you want to spend? max: " << availablePoints << "\n";
 	std::cin >> toSpend;
 
 	while (std::cin.fail() || (toSpend < 0 || toSpend > availablePoints))
@@ -234,7 +237,7 @@ void Player::customiseStats(int availablePoints)
 
 	if (pointsLeft > 0)
 	{
-		customiseStats(pointsLeft);
+		customiseStats(pointsLeft); // iteration until player has zero points left to spend
 	}
 }
 
@@ -247,6 +250,7 @@ bool Player::checkInput(char directions[]) // check for valid input
 {
 	//char d[] = direction;
 
+	// error trapping
 	int length = (int)strlen(directions);
 
 	for (int i = 0; i < length; i++) 

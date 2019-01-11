@@ -15,7 +15,7 @@ int Knight::calculateDamage()
 	float randInt = (float)(rand() % m_intelligence + 1);
 	float randDxt = (float)(rand() % m_dexterity + 1);
 
-	float total = (randStr * 0.5f) + (randDxt * 0.33f) + (randInt * 0.17f);
+	float total = (randStr * 0.5f) + (randDxt * 0.33f) + (randInt * 0.17f); // unique way of calculating damage compared to other player classes
 	//total = total / 3.0f;
 
 	return (int)total;

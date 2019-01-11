@@ -14,7 +14,7 @@ int Mage::calculateDamage()
 	float randInt = (float)(rand() % m_intelligence + 1);
 	float randDxt = (float)(rand() % m_dexterity + 1);
 
-	float total = (randInt * 0.5f) + (randDxt * 0.33f) + (randStr * 0.17f);
+	float total = (randInt * 0.5f) + (randDxt * 0.33f) + (randStr * 0.17f); // unique way of calculating damage compared to other player classes
 	//total = total / 3.0f;
 
 	return (int)total;

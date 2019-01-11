@@ -15,7 +15,7 @@ int Archer::calculateDamage()
 	float randInt = (float)(rand() % m_intelligence + 1);
 	float randDxt = (float)(rand() % m_dexterity + 1);
 
-	float total = (randDxt * 0.5f) + (randStr * 0.33f) + (randInt * 0.17f);
+	float total = (randDxt * 0.5f) + (randStr * 0.33f) + (randInt * 0.17f); // unique way of calculating damage compared to other player classes
 
 	return (int)total;
 }

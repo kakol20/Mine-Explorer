@@ -61,9 +61,7 @@ void EnemyBase::Activate(Player* player, int turns)
 	{
 		int chosen = rand() % 3;
 
-
-		//chosen = ORC; // temporary
-
+		// randomly choose an enemy class
 		if (chosen == ORC)
 		{
 			m_enemy = new Orc();
@@ -81,24 +79,9 @@ void EnemyBase::Activate(Player* player, int turns)
 		}
 
 		m_discovered = true;
-		std::cout << "You have discovered an enemy base at ( " << m_position.x << ", " << m_position.y << ")\n";
+		std::cout << "You have discovered an enemy base at (" << m_position.x << ", " << m_position.y << ")\n";
 	}
 }
-
-//int EnemyBase::getDamage()
-//{
-//	return m_enemy->calculateDamage();
-//}
-
-//int EnemyBase::getEnemyType()
-//{
-//	if (dynamic_cast<Orc*>(m_enemy))
-//	{
-//		return ORC;
-//	}
-//
-//	return -1;
-//}
 
 int EnemyBase::interact(int playerDamage)
 {

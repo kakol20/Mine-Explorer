@@ -65,7 +65,7 @@ void Mine::Activate(Player* player, int turns)
 	{
 		m_damaged = false;
 		// generate a random mine value between 1 to 5 - this will determine how much gold the player will gain from it
-		int randVal = (rand() % 5) + 1;
+		int randVal = (rand() % 3) + 1;
 		m_value = randVal;
 
 		m_discovered = true;
@@ -110,7 +110,7 @@ void Mine::spawnEnemy()
 	{
 		m_attackingEnemy = new Orc();
 
-		m_attackingEnemy->Init(0);
+		m_attackingEnemy->Init(0); // spawns a weak enemy
 
 		m_enemySpawned = true;
 	}
@@ -140,6 +140,7 @@ int Mine::interact(int playerDamage)
 	{
 		if (m_enemySpawned)
 		{
+			// if an enemy spawned, player need to kill it to complete game
 			int enemyDamage = m_attackingEnemy->calculateDamage();
 			netDamage = playerDamage - enemyDamage;
 
@@ -179,7 +180,7 @@ int Mine::interact(int playerDamage)
 				else if (dynamic_cast<Goblin*>(m_attackingEnemy))
 				{
 					std::cout << "Goblin's";
-				}
+				} // change output based on enemie's class
 
 				std::cout << " damage is " << enemyDamage << "\n";
 
@@ -201,13 +202,13 @@ int Mine::interact(int playerDamage)
 		{
 			int option;
 
-			for (int i = 0; i < 30; i++)
+			/*for (int i = 0; i < 30; i++)
 			{
 				std::cout << (char)205;
 			}
-			std::cout << "\n";
+			std::cout << "\n";*/
 
-			std::cout << "Do you want to repair this mine?\n" <<
+			std::cout << "Do you want to repair this mine?\n" << // player do not have to repair mine to win
 				"0. Yes\n" <<
 				"1. No\n";
 			std::cin >> option;

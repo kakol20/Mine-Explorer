@@ -96,6 +96,7 @@ void Map::init(Player* player, int turns)
 			randY = rand() % height;
 		}
 
+		// prevents tile from spawning adjacent to other tiles
 		grid[randX][randY] = new EnemyBase(randX, randY);
 		m_enemyBaseCount++;
 
@@ -351,7 +352,7 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 		std::cout << (char)186 << " ";
 	}
 
-	// displays whole map in less detail reperesented by letters or squares
+	// displays whole map in less detail reperesented by letters or squares (map on the right)
 	if (yMiniMap < height)
 	{
 		for (int xMiniMap = 0; xMiniMap < width; xMiniMap++)
@@ -461,7 +462,7 @@ void Map::revealNear(int x, int y, Player* player, int turns)
 void Map::nextTurn(Player * player, int turns)
 {
 	int chance = rand() % 20; // 1 in 20 chance of spawning an enemy on
-	int chosenMine = rand() & maxMines;
+	int chosenMine = rand() % maxMines; // chooses one of the mines to spawn an enemy
 	int count = 0;
 
 	for (int x = 0; x < width; x++)
@@ -477,7 +478,7 @@ void Map::nextTurn(Player * player, int turns)
 					Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
 					
 					// mine will not give gold if it's damaged by an enemy
-					if (!mine->isDamaged())
+					if (!mine->isDamaged()) // cannot spawn an enemy is one of the mines is damaged
 					{
 						if (chance == 0)
 						{
@@ -495,11 +496,11 @@ void Map::nextTurn(Player * player, int turns)
 							player->addGold(mine->getValue());
 						}
 
-						count++;
+						count++; // go throughs every mine until the chosen mine
 					}
 					else
 					{
-						count = maxMines * -2;
+						count = maxMines * -2; // an enemy can only be spawned once on a mine
 					}
 					
 				}
@@ -510,10 +511,11 @@ void Map::nextTurn(Player * player, int turns)
 
 bool Map::isOnTileType(Player * player)
 {
+	// checks if player is on a interactable tile
 	if (dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]))
 	{
 		Mine* mine = dynamic_cast<Mine*>(grid[player->getPosition().x][player->getPosition().y]);
-		if (mine->isDamaged())
+		if (mine->isDamaged()) // can only interact with the mine if it's damaged (note: mine is damaged if enemy is spawned on it)
 		{
 			return true;
 		}
@@ -533,7 +535,7 @@ bool Map::isOnTileType(Player * player)
 void Map::interact(Player * player, int turns)
 {
 	//Position pos = player->getPosition()
-	Position pos = player->getPosition();
+	Position pos = player->getPosition(); // for ease of typing
 
 	if (dynamic_cast<Mine*>(grid[pos.x][pos.y]))
 	{
@@ -542,11 +544,11 @@ void Map::interact(Player * player, int turns)
 		if (mine->isDamaged())
 		{
 
-			int netDamage = mine->interact(player->calculateDamage());
+			int netDamage = mine->interact(player->calculateDamage()); // for combat with an enemy occupying a mine or for repairing a mine
 
 			if (netDamage < 0)
 			{
-				player->changeHealth(netDamage);
+				player->changeHealth(netDamage); 
 			}
 		}
 	}
@@ -566,9 +568,9 @@ void Map::interact(Player * player, int turns)
 
 			system("pause");
 
-			player->customiseStats(10);
+			player->customiseStats(5);
 		}
-		else if (netDamage < 0)
+		else if (netDamage < 0) // player lose
 		{
 			player->changeHealth(netDamage);
 		}
@@ -592,16 +594,16 @@ bool Map::isComplete()
 	{
 		for (int y = 0; y < height; y++)
 		{
-			if (!grid[x][y]->isDiscovered())
+			if (!grid[x][y]->isDiscovered()) // checks if all tiles have been discovered
 			{
 				return false;
 			}
 
-			if (dynamic_cast<EnemyBase*>(grid[x][y]))
+			if (dynamic_cast<EnemyBase*>(grid[x][y])) // checks if there are still enemies on the map
 			{
 				return false;
 			}
-			else if (dynamic_cast<Mine*>(grid[x][y]))
+			else if (dynamic_cast<Mine*>(grid[x][y])) // checks if an enemy has spawned on a mine tile
 			{
 				Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
 
