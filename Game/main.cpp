@@ -16,6 +16,7 @@ int main()
 
 	while (true)
 	{
+		system("cls");
 		Game* game = new Game; // start game
 
 		game->Init();

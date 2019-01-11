@@ -64,8 +64,8 @@ void Mine::Activate(Player* player, int turns)
 	if (!m_discovered) 
 	{
 		m_damaged = false;
-		// generate a random mine value between 1 to 5 - this will determine how much gold the player will gain from it
-		int randVal = (rand() % 3) + 1;
+		// generate a random mine value between 1 to 2 - this will determine how much gold the player will gain from it
+		int randVal = (rand() % 2) + 1;
 		m_value = randVal;
 
 		m_discovered = true;
@@ -99,7 +99,7 @@ void Mine::setDamage(bool damaged)
 	m_damaged = damaged;
 }
 
-void Mine::spawnEnemy()
+void Mine::spawnEnemy(int turns)
 {
 	int random = rand() % 3;
 
@@ -110,7 +110,7 @@ void Mine::spawnEnemy()
 	{
 		m_attackingEnemy = new Orc();
 
-		m_attackingEnemy->Init(0); // spawns a weak enemy
+		m_attackingEnemy->Init(turns);
 
 		m_enemySpawned = true;
 	}
@@ -118,7 +118,7 @@ void Mine::spawnEnemy()
 	{
 		m_attackingEnemy = new Witch();
 
-		m_attackingEnemy->Init(0);
+		m_attackingEnemy->Init(turns);
 
 		m_enemySpawned = true;
 	}
@@ -126,7 +126,7 @@ void Mine::spawnEnemy()
 	{
 		m_attackingEnemy = new Goblin();
 
-		m_attackingEnemy->Init(0);
+		m_attackingEnemy->Init(turns);
 
 		m_enemySpawned = true;
 	}

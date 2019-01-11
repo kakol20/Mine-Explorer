@@ -461,7 +461,7 @@ void Map::revealNear(int x, int y, Player* player, int turns)
 
 void Map::nextTurn(Player * player, int turns)
 {
-	int chance = rand() % 20; // 1 in 20 chance of spawning an enemy on
+	int chance = rand() % 10; // 1 in 10 chance of spawning an enemy on
 	int chosenMine = rand() % maxMines; // chooses one of the mines to spawn an enemy
 	int count = 0;
 
@@ -478,13 +478,13 @@ void Map::nextTurn(Player * player, int turns)
 					Mine* mine = dynamic_cast<Mine*>(grid[x][y]);
 					
 					// mine will not give gold if it's damaged by an enemy
-					if (!mine->isDamaged()) // cannot spawn an enemy is one of the mines is damaged
+					if (!mine->isDamaged()) // cannot spawn an enemy if the mines is damaged
 					{
 						if (chance == 0)
 						{
 							if (count == chosenMine)
 							{
-								mine->spawnEnemy();
+								mine->spawnEnemy(turns);
 
 								std::cout << "Enemy spawned at (" << x << ", " << y << ")!\n";
 
@@ -495,14 +495,8 @@ void Map::nextTurn(Player * player, int turns)
 						{
 							player->addGold(mine->getValue());
 						}
-
-						count++; // go throughs every mine until the chosen mine
 					}
-					else
-					{
-						count = maxMines * -2; // an enemy can only be spawned once on a mine
-					}
-					
+					count++; // go throughs every mine until the chosen mine
 				}
 			}
 		}

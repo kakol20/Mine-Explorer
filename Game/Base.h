@@ -23,7 +23,7 @@ const int height = 15;
 const int width = 15;
 
 const int maxEnemyBases = 5;
-const int maxMines = 7;
+const int maxMines = 5;
 const int maxShops = 10;
 
 #endif // !BASE_H

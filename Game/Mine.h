@@ -22,7 +22,7 @@ public:
 	bool isEnemySpawned();
 	void setDamage(bool damaged);
 
-	void spawnEnemy();
+	void spawnEnemy(int turns);
 
 	int interact(int playerDamage);
 
