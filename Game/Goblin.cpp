@@ -26,9 +26,9 @@ Goblin::~Goblin()
 
 void Goblin::Init(int turns)
 {
-	m_dexterity = rand() % 5 + (10 + (turns / 7));
-	m_strength = rand() % 5 + (5 + (turns / 7));
-	m_intelligence = rand() % 3 + (3 + (turns / 7));
+	m_dexterity = rand() % 5 + (10 + (turns / 10));
+	m_strength = rand() % 5 + (5 + (turns / 10));
+	m_intelligence = rand() % 3 + (3 + (turns / 10));
 }
 
 int Goblin::calculateDamage()

@@ -271,15 +271,23 @@ void Map::draw(Position playerPos)
 				if (dynamic_cast<Mine*>(grid[x][y]))
 				{
 					Mine * temp = dynamic_cast<Mine*>(grid[x][y]);
+					std::cout << temp->getValue();
+
 					if (temp->isDamaged())
 					{
-						std::cout << "d";
+						if (temp->isEnemySpawned())
+						{
+							std::cout << "W ";
+						}
+						else
+						{
+							std::cout << "D ";
+						}
 					}
 					else
 					{
-						std::cout << temp->getValue();
+						std::cout << "M ";
 					}
-					std::cout << "M ";
 				}
 				else if (dynamic_cast<EnemyBase*>(grid[x][y]))
 				{
@@ -356,7 +364,23 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 				}
 				else if (dynamic_cast<Mine*>(grid[xMiniMap][yMiniMap]))
 				{
-					std::cout << "M ";
+					Mine* mine = dynamic_cast<Mine*>(grid[xMiniMap][yMiniMap]);
+
+					if (mine->isDamaged())
+					{
+						if (mine->isEnemySpawned())
+						{
+							std::cout << "W ";
+						}
+						else
+						{
+							std::cout << "D ";
+						}
+					}
+					else
+					{
+						std::cout << "M ";
+					}
 				}
 				else if (dynamic_cast<EnemyBase*>(grid[xMiniMap][yMiniMap]))
 				{
@@ -391,17 +415,25 @@ void Map::displayMiniMap(int yMiniMap, Position playerPos)
 	}
 	else if (yMiniMap == height + 2)
 	{
-		std::cout << "nM = mine preceded by its value 'n' or 'd' if it's damaged";
+		std::cout << "nM = mine preceded by its value 'n'";
 	}
 	else if (yMiniMap == height + 3)
 	{
-		std::cout << "E = enemy base";
+		std::cout << "nD = damaged mine preceded by it's value 'n'";
 	}
 	else if (yMiniMap == height + 4)
 	{
-		std::cout << "S = shop";
+		std::cout << "nw = enemy occupied mine preceded by it's value 'n'";
 	}
 	else if (yMiniMap == height + 5)
+	{
+		std::cout << "E = enemy base";
+	}
+	else if (yMiniMap == height + 6)
+	{
+		std::cout << "S = shop";
+	}
+	else if (yMiniMap == height + 7)
 	{
 		std::cout << (char)254 << " = undiscovered area";
 	}
@@ -522,10 +554,6 @@ void Map::interact(Player * player, int turns)
 	{
 		EnemyBase* base = dynamic_cast<EnemyBase*>(grid[pos.x][pos.y]);
 
-		/*TODO: All will happen in EnemyBase class
-			1. Ask player if they want to attack enemy
-				a. (OPTIONAL) Different attacks based on the player's class?
-		*/
 		int netDamage = base->interact(player->calculateDamage());
 
 		if (netDamage > 0) // player won
