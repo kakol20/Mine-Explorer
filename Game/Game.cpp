@@ -65,6 +65,21 @@ void Game::Init()
 	}
 	player->Init();
 
+	system("cls");
+
+	// ---------- GAME INTRODUCTION ----------
+
+	std::cout << "Welcome to Mine Kingdom!\n"
+		<< "You are an adventurer.\n"
+		<< "Your home kingdom's king wants to expand the kingdom.\n"
+		<< "So you have been hired to explore the surrounding area and eliminate\n"
+		<< " any enemies that you find as quickly as possible\n\n"
+		<< "Quest -\n"
+		<< "1. Eliminate all enemies (including ones occupying a mine)\n"
+		<< "2. Discover everything\n";
+
+	system("pause");
+
 	map->init(player, m_turns);
 
 	m_turns = 0;

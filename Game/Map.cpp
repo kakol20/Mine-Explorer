@@ -592,6 +592,11 @@ bool Map::isComplete()
 	{
 		for (int y = 0; y < height; y++)
 		{
+			if (!grid[x][y]->isDiscovered())
+			{
+				return false;
+			}
+
 			if (dynamic_cast<EnemyBase*>(grid[x][y]))
 			{
 				return false;
